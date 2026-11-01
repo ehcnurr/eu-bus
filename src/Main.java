@@ -41,6 +41,7 @@ public class Main {
                 }
             }
         });
+
         btnDriver.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -73,6 +74,37 @@ public class Main {
                 }
             }
         });
+        btnGuest.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                JFrame frame = new JFrame("AVAILABLE BUSES");
+                BusesAvailable form = new BusesAvailable();
+
+                JPanel panel = form.getAvailableBusPanel();
+                if (panel == null) {
+                    JOptionPane.showMessageDialog(null,
+                            "Error: getAvailableBusPanel returned null. Check BusesAvailable.java!",
+                            "Null Panel Error",
+                            JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+
+                frame.setContentPane(panel);
+                frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                frame.setSize(500, 400);
+                frame.setLocationRelativeTo(null);
+                frame.setVisible(true);
+
+                JFrame currentFrame = (JFrame) SwingUtilities.getWindowAncestor(mainPanel);
+                if (currentFrame != null) {
+                    currentFrame.dispose();
+                }
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+            }
+        });
     }
 
     public JPanel getMainPanel() {
@@ -92,7 +124,6 @@ public class Main {
             frame.setLocationRelativeTo(null);
             frame.setVisible(true);
         });
-
 
     }
 
