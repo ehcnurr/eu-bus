@@ -55,7 +55,7 @@ public class StudentSignUp {
 
                 if (username.isEmpty() || password.isEmpty() || confPassword.isEmpty()) {
                     JOptionPane.showMessageDialog(null,
-                            "Username of password fields cannot be empty.");
+                            "Username or password fields cannot be empty.");
                     return;
                 }
 
