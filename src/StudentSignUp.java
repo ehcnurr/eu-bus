@@ -1,6 +1,9 @@
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 
 public class StudentSignUp {
     private JTextField txtCreateUsername;
@@ -40,6 +43,47 @@ public class StudentSignUp {
                     }
                 } catch (Exception ex) {
                     ex.printStackTrace();
+                }
+            }
+        });
+        btnCreateAcc.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String username = txtCreateUsername.getText().trim();
+                String password = txtCreatePassword.getText().trim();
+                String confPassword = txtConfirmPassword.getText().trim();
+
+                if (username.isEmpty() || password.isEmpty() || confPassword.isEmpty()) {
+                    JOptionPane.showMessageDialog(null,
+                            "Username of password fields cannot be empty.");
+                    return;
+                }
+
+                if (!(password.equals(confPassword))) {
+                    JOptionPane.showMessageDialog(null,
+                            "Passwords are not equal.");
+                    return;
+                }
+
+                String query = """
+                        INSERT INTO students_or_staff 
+                        VALUES (?, ?)
+                        """;
+
+                try {
+                    Connection con = DatabaseConnection.getConnection();
+                    PreparedStatement stmt = con.prepareStatement(query);
+
+                    stmt.setString(1, username);
+                    stmt.setString(2, password);
+
+                    int affectedRows = stmt.executeUpdate();
+
+                    if (affectedRows > 0) {
+                        JOptionPane.showMessageDialog(null, "Account created successfully!");
+                    }
+                } catch (SQLException ex) {
+                    JOptionPane.showMessageDialog(null, "Database Error: " + ex.getMessage());
                 }
             }
         });
