@@ -75,7 +75,33 @@ public class BusDriverLogIn {
 
                     JOptionPane.showMessageDialog(null, "Login Successful!");
 
-                    // will add here later kasi wala pang ui for selection ng bus ng driver
+                    try {
+                        JFrame frame = new JFrame("STUDENT / STAFF ACCOUNT SIGN UP");
+                        BusDetails form = new BusDetails();
+
+                        JPanel panel = form.getBusDetailsPanel();
+
+                        if (panel == null) {
+                            JOptionPane.showMessageDialog(null,
+                                    "Error: getStudentSignUpPanel returned null. Check BusDetails.java!",
+                                    "Null Panel Error",
+                                    JOptionPane.ERROR_MESSAGE);
+                            return;
+                        }
+
+                        frame.setContentPane(panel);
+                        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                        frame.setSize(500, 400);
+                        frame.setLocationRelativeTo(null);
+                        frame.setVisible(true);
+
+                        JFrame currentFrame = (JFrame) SwingUtilities.getWindowAncestor(driverLoginPanel);
+                        if (currentFrame != null) {
+                            currentFrame.dispose();
+                        }
+                    } catch (Exception ex) {
+                        ex.printStackTrace();
+                    }
 
                 } catch (SQLException ex) {
                     JOptionPane.showMessageDialog(null, "Database Error: " + ex.getMessage());
