@@ -13,8 +13,11 @@ public class BusDetails {
     private JTextField txtDepartingTime;
     private JButton btnSelectBus;
     private JButton btnBusDetailsReturn;
+    private String loggedInUsername;
 
-    public BusDetails() {
+    public BusDetails(String username) {
+        this.loggedInUsername = username;
+
         cmbChooseBus.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -51,10 +54,139 @@ public class BusDetails {
             }
         });
 
+        btnBusDetailsReturn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    JFrame frame = new JFrame("Bus Login");
+                    BusDriverLogIn form = new BusDriverLogIn();
+
+                    JPanel panel = form.getDriverLoginPanel();
+                    if (panel == null) {
+                        JOptionPane.showMessageDialog(null,
+                                "Error: getAvailableBusPanel returned null. Check BusDriverLogIn.java!",
+                                "Null Panel Error",
+                                JOptionPane.ERROR_MESSAGE);
+                        return;
+                    }
+
+                    frame.setContentPane(panel);
+                    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                    frame.setSize(500, 400);
+                    frame.setLocationRelativeTo(null);
+                    frame.setVisible(true);
+
+                    JFrame currentFrame = (JFrame) SwingUtilities.getWindowAncestor(busDetailsPanel);
+                    if (currentFrame != null) {
+                        currentFrame.dispose();
+                    }
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+            }
+        });
+
         btnSelectBus.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                int bus_num = Integer.parseInt(
+                        cmbChooseBus.getSelectedItem().toString().replace("Bus ", "")
+                );
 
+                String checkQuery = """
+                    SELECT username
+                    FROM drivers
+                    WHERE selected_bus = ?
+                      AND username <> ?
+                    """;
+
+                String query = """
+                    UPDATE drivers
+                    SET selected_bus = ?
+                    WHERE username = ?
+                    """;
+
+                try (Connection con = DatabaseConnection.getConnection()) {
+
+                    // check if another driver selected this bus
+                    try (PreparedStatement checkStmt =
+                                 con.prepareStatement(checkQuery)) {
+
+                        checkStmt.setInt(1, bus_num);
+                        checkStmt.setString(2, loggedInUsername);
+
+                        try (ResultSet rs = checkStmt.executeQuery()) {
+                            if (rs.next()) {
+                                JOptionPane.showMessageDialog(
+                                        null,
+                                        "Bus " + bus_num
+                                                + " is already selected by another driver.",
+                                        "Bus Unavailable",
+                                        JOptionPane.WARNING_MESSAGE
+                                );
+                                return;
+                            }
+                        }
+                    }
+
+                    // update the current driver's selected bus
+                    try (PreparedStatement updateStmt =
+                                 con.prepareStatement(query)) {
+
+                        updateStmt.setInt(1, bus_num);
+                        updateStmt.setString(2, loggedInUsername);
+
+                        int affectedRows = updateStmt.executeUpdate();
+
+                        if (affectedRows > 0) {
+                            JOptionPane.showMessageDialog(
+                                    null,
+                                    "Bus " + bus_num + " selected successfully!"
+                            );
+
+                            try {
+                                JFrame frame = new JFrame("BUS STATUS");
+                                BusStatus form = new BusStatus(bus_num);
+
+                                JPanel panel = form.getBusStatusPanel();
+
+                                if (panel == null) {
+                                    JOptionPane.showMessageDialog(null,
+                                            "Error: getDriverLoginPanel returned null. Check BusStatus.java!",
+                                            "Null Panel Error",
+                                            JOptionPane.ERROR_MESSAGE);
+                                    return;
+                                }
+
+                                frame.setContentPane(panel);
+                                frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                                frame.setSize(500, 400);
+                                frame.setLocationRelativeTo(null);
+                                frame.setVisible(true);
+
+                                JFrame currentFrame = (JFrame) SwingUtilities.getWindowAncestor(busDetailsPanel);
+                                if (currentFrame != null) {
+                                    currentFrame.dispose();
+                                }
+                            } catch (Exception ex) {
+                                ex.printStackTrace();
+                            }
+                        } else {
+                            JOptionPane.showMessageDialog(
+                                    null,
+                                    "Driver account not found.",
+                                    "Error",
+                                    JOptionPane.ERROR_MESSAGE
+                            );
+                        }
+                    }
+
+                } catch (SQLException ex) {
+                    JOptionPane.showMessageDialog(
+                            null,
+                            "Database Error: " + ex.getMessage()
+                    );
+                }
             }
         });
     }

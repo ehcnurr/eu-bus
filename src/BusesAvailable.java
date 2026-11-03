@@ -2,6 +2,10 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.table.DefaultTableModel;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class BusesAvailable {
     private JTable tblBusesAvailable;
@@ -20,8 +24,12 @@ public class BusesAvailable {
         tableBuses.addColumn("Bus Number");
         tableBuses.addColumn("Arriving Time");
         tableBuses.addColumn("Departing Time");
+        tableBuses.addColumn("Available Slots");
+        tableBuses.addColumn("Status");
 
         tblBusesAvailable.setModel(tableBuses);
+
+        loadBuses();
 
         btnBusAvReturn.addActionListener(new ActionListener() {
             @Override
@@ -55,7 +63,78 @@ public class BusesAvailable {
                 }
             }
         });
+
+        btnSelectBus1.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
+        btnSelectBus2.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
+        btnSelectBus3.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
+        btnSelectBus4.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
+        btnSelectBus5.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
     }
+
+    private void loadBuses() {
+        tableBuses.setRowCount(0); // clear existing rows
+
+        String query = """
+        SELECT bus_num, arrival, departing, status, available_slots
+        FROM buses
+        ORDER BY bus_num
+        """;
+
+        try (Connection con = DatabaseConnection.getConnection();
+             PreparedStatement stmt = con.prepareStatement(query);
+             ResultSet rs = stmt.executeQuery()) {
+
+            while (rs.next()) {
+                int busNum = rs.getInt("bus_num");
+                String arrival = rs.getString("arrival");
+                String departing = rs.getString("departing");
+                int available_slots = rs.getInt("available_slots");
+                String status = rs.getString("status");
+
+                tableBuses.addRow(new Object[]{
+                        busNum,
+                        arrival,
+                        departing,
+                        available_slots,
+                        status
+                });
+            }
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(
+                    availableBusPanel,
+                    "Failed to load buses: " + ex.getMessage(),
+                    "Database Error",
+                    JOptionPane.ERROR_MESSAGE
+            );
+        }
+    }
+
 
     public JPanel getAvailableBusPanel() {
         return availableBusPanel;

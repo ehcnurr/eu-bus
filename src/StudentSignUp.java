@@ -46,6 +46,7 @@ public class StudentSignUp {
                 }
             }
         });
+
         btnCreateAcc.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -66,13 +67,12 @@ public class StudentSignUp {
                 }
 
                 String query = """
-                        INSERT INTO students_or_staff 
-                        VALUES (?, ?)
-                        """;
+                INSERT INTO students_or_staff (username, password)
+                VALUES (?, ?)
+                """;
 
-                try {
-                    Connection con = DatabaseConnection.getConnection();
-                    PreparedStatement stmt = con.prepareStatement(query);
+                try (Connection con = DatabaseConnection.getConnection();
+                     PreparedStatement stmt = con.prepareStatement(query)) {
 
                     stmt.setString(1, username);
                     stmt.setString(2, password);
@@ -80,10 +80,17 @@ public class StudentSignUp {
                     int affectedRows = stmt.executeUpdate();
 
                     if (affectedRows > 0) {
-                        JOptionPane.showMessageDialog(null, "Account created successfully!");
+                        JOptionPane.showMessageDialog(null,
+                                "Account created successfully!");
+
+                        txtCreateUsername.setText("");
+                        txtCreatePassword.setText("");
+                        txtConfirmPassword.setText("");
                     }
+
                 } catch (SQLException ex) {
-                    JOptionPane.showMessageDialog(null, "Database Error: " + ex.getMessage());
+                    JOptionPane.showMessageDialog(null,
+                            "Database Error: " + ex.getMessage());
                 }
             }
         });

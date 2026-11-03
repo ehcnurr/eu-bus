@@ -29,4 +29,9 @@ public class SeatSelection {
     private JCheckBox checkBox1;
     private JCheckBox chkS1;
     private JButton btnSeatSelectReturn;
+    private JPanel seatSelectionPanel;
+
+    public JPanel getSeatSelectionPanel() {
+        return seatSelectionPanel;
+    }
 }
