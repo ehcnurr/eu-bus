@@ -22,6 +22,7 @@ public class BusesAvailable {
     public BusesAvailable() {
 
         tableBuses.addColumn("Bus Number");
+        tableBuses.addColumn("Driver Name");
         tableBuses.addColumn("Arriving Time");
         tableBuses.addColumn("Departing Time");
         tableBuses.addColumn("Available Slots");
@@ -100,7 +101,7 @@ public class BusesAvailable {
         tableBuses.setRowCount(0); // clear existing rows
 
         String query = """
-        SELECT bus_num, arrival, departing, status, available_slots
+        SELECT bus_num, arrival, departing, status, available_slots, driver_name
         FROM buses
         ORDER BY bus_num
         """;
@@ -115,9 +116,11 @@ public class BusesAvailable {
                 String departing = rs.getString("departing");
                 int available_slots = rs.getInt("available_slots");
                 String status = rs.getString("status");
+                String driver_name = rs.getString("driver_name");
 
                 tableBuses.addRow(new Object[]{
                         busNum,
+                        driver_name,
                         arrival,
                         departing,
                         available_slots,

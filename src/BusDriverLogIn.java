@@ -86,7 +86,7 @@ public class BusDriverLogIn {
                     if (selectedBusNum > 0) {
                         try {
                             JFrame frame = new JFrame("BUS STATUS");
-                            BusStatus form = new BusStatus(selectedBusNum);
+                            BusStatus form = new BusStatus(selectedBusNum, username);
 
                             JPanel panel = form.getBusStatusPanel();
 

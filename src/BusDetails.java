@@ -139,14 +139,55 @@ public class BusDetails {
                         int affectedRows = updateStmt.executeUpdate();
 
                         if (affectedRows > 0) {
-                            JOptionPane.showMessageDialog(
-                                    null,
-                                    "Bus " + bus_num + " selected successfully!"
-                            );
+                            String getNameQuery = """
+                            SELECT * FROM drivers
+                            WHERE username = ?
+                            """;
 
+                            // get driver's name from drivers database and update the buses database
+                            try (PreparedStatement nameStmt = con.prepareStatement(getNameQuery)) {
+
+                                nameStmt.setString(1, loggedInUsername);
+
+                                try (ResultSet rs = nameStmt.executeQuery()) {
+
+                                    if (rs.next()) {
+                                        String driverName = rs.getString("name");
+
+                                        String updateDriverNameQuery = """
+                                                                UPDATE buses
+                                                                SET driver_name = ?
+                                                                WHERE bus_num = ?
+                                                                """;
+
+                                        try (PreparedStatement updateNameStmt =
+                                                     con.prepareStatement(updateDriverNameQuery)) {
+
+                                            updateNameStmt.setString(1, driverName);
+                                            updateNameStmt.setInt(2, bus_num);
+
+                                            int rowsUpdated = updateNameStmt.executeUpdate();
+
+                                            if (rowsUpdated > 0) {
+                                                JOptionPane.showMessageDialog(
+                                                        null,
+                                                        "Bus " + bus_num + " selected successfully!\n"
+                                                                + "Driver: " + driverName
+                                                );
+                                            }
+                                        }
+                                    } else {
+                                        JOptionPane.showMessageDialog(
+                                                null, "Driver name not found."
+                                        );
+                                    }
+                                }
+                            }
+
+                            // open status panel after choosing a bus successfully
                             try {
                                 JFrame frame = new JFrame("BUS STATUS");
-                                BusStatus form = new BusStatus(bus_num);
+                                BusStatus form = new BusStatus(bus_num, username);
 
                                 JPanel panel = form.getBusStatusPanel();
 

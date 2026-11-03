@@ -74,6 +74,7 @@ public class Main {
                 }
             }
         });
+
         btnGuest.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -124,7 +125,6 @@ public class Main {
             frame.setLocationRelativeTo(null);
             frame.setVisible(true);
         });
-
     }
 
 }
