@@ -34,4 +34,5 @@ public class SeatSelection {
     public JPanel getSeatSelectionPanel() {
         return seatSelectionPanel;
     }
+
 }
