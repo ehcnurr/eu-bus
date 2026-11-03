@@ -34,7 +34,7 @@ public class SeatSelection {
     private JCheckBox chkS16;
     private JCheckBox chkS13;
     private JCheckBox chkS14;
-    private JCheckBox checkBox1;
+    private JCheckBox chkDriver;
     private JCheckBox chkS1;
     private JButton btnSeatSelectReturn;
     private JPanel seatSelectionPanel;

@@ -130,7 +130,7 @@
           <text value="DRIVER'S SEAT"/>
         </properties>
       </component>
-      <component id="9b97f" class="javax.swing.JCheckBox" binding="checkBox1" default-binding="true">
+      <component id="9b97f" class="javax.swing.JCheckBox" binding="chkDriver">
         <constraints>
           <grid row="9" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
