@@ -68,31 +68,31 @@ public class BusesAvailable {
         btnSelectBus1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                selectBus(1);
             }
         });
         btnSelectBus2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                selectBus(2);
             }
         });
         btnSelectBus3.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                selectBus(3);
             }
         });
         btnSelectBus4.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                selectBus(4);
             }
         });
         btnSelectBus5.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                selectBus(5);
             }
         });
     }
@@ -135,6 +135,44 @@ public class BusesAvailable {
                     "Database Error",
                     JOptionPane.ERROR_MESSAGE
             );
+        }
+    }
+
+    private void selectBus(int busNum) {
+        SeatSelection seatWindow = new SeatSelection();
+        seatWindow.loadBusSeats(busNum);
+
+        displayWindow();
+
+    }
+
+    private void displayWindow() {
+        try {
+            JFrame frame = new JFrame("SEAT SELECTION");
+            SeatSelection form = new SeatSelection();
+
+            JPanel panel = form.getSeatSelectionPanel();
+
+            if (panel == null) {
+                JOptionPane.showMessageDialog(null,
+                        "Error: getSeatSelectionPanel returned null. Check SeatSelection.java!",
+                        "Null Panel Error",
+                        JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            frame.setContentPane(panel);
+            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            frame.setSize(500, 400);
+            frame.setLocationRelativeTo(null);
+            frame.setVisible(true);
+
+            JFrame currentFrame = (JFrame) SwingUtilities.getWindowAncestor(availableBusPanel);
+            if (currentFrame != null) {
+                currentFrame.dispose();
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
         }
     }
 
