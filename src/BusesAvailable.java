@@ -65,36 +65,19 @@ public class BusesAvailable {
             }
         });
 
-        btnSelectBus1.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                selectBus(1);
-            }
-        });
-        btnSelectBus2.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                selectBus(2);
-            }
-        });
-        btnSelectBus3.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                selectBus(3);
-            }
-        });
-        btnSelectBus4.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                selectBus(4);
-            }
-        });
-        btnSelectBus5.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                selectBus(5);
-            }
-        });
+        JButton[] busButtons = {
+                btnSelectBus1,
+                btnSelectBus2,
+                btnSelectBus3,
+                btnSelectBus4,
+                btnSelectBus5
+        };
+
+        for (int i = 0; i < busButtons.length; i++) {
+            int busNum = i+1;
+
+            busButtons[i].addActionListener(e -> selectBus(busNum));
+        }
     }
 
     private void loadBuses() {
@@ -139,17 +122,16 @@ public class BusesAvailable {
     }
 
     private void selectBus(int busNum) {
-        SeatSelection seatWindow = new SeatSelection();
-        seatWindow.loadBusSeats(busNum);
-
-        displayWindow();
+        displayWindow(busNum);
 
     }
 
-    private void displayWindow() {
+    private void displayWindow(int busNum) {
         try {
             JFrame frame = new JFrame("SEAT SELECTION");
             SeatSelection form = new SeatSelection();
+
+            form.loadBusSeats(busNum);
 
             JPanel panel = form.getSeatSelectionPanel();
 
