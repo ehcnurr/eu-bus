@@ -40,7 +40,13 @@ public class SeatSelection {
     private JPanel seatSelectionPanel;
     private int selectedBusNum;
 
+    private Map<String, JCheckBox> seatBoxes = new LinkedHashMap<>();
+
+
     public SeatSelection() {
+        initializeSeatBoxes();
+        setupSeatListeners();
+
         btnSeatSelectReturn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -79,11 +85,7 @@ public class SeatSelection {
         return seatSelectionPanel;
     }
 
-    public void loadBusSeats(int busNum) {
-        this.selectedBusNum = busNum;
-
-        Map<String, JCheckBox> seatBoxes = new LinkedHashMap<>();
-
+    private void initializeSeatBoxes() {
         seatBoxes.put("S1", chkS1);
         seatBoxes.put("S2", chkS2);
         seatBoxes.put("S3", chkS3);
@@ -110,6 +112,11 @@ public class SeatSelection {
         seatBoxes.put("S24", chkS24);
         seatBoxes.put("S25", chkS25);
         seatBoxes.put("S26", chkS26);
+
+    }
+
+    public void loadBusSeats(int busNum) {
+        this.selectedBusNum = busNum;
 
         for (JCheckBox seat: seatBoxes.values()) {
             seat.setSelected(false);
