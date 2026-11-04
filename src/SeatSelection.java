@@ -189,13 +189,41 @@ public class SeatSelection {
                         "PAYMENT SLIP\n\n" +
                         "Reservation ID: " + idCounter +
                         "\nBus Number: " + selectedBusNum +
-                        "\nSeat: " + seat +
+                        "\nSeat: " + seatNum +
                         "\n\nPlease show this payment slip to assigned bus driver, along with the exact amount."
                 );
 
             } else {
+                try {
+                    JFrame frame = new JFrame("ONLINE PAYMENT");
+                    OnlinePayment form = new OnlinePayment();
 
+                    JPanel panel = form.getOnlinePaymentPanel();
+
+                    if (panel == null) {
+                        JOptionPane.showMessageDialog(null,
+                                "Error: getOnlinePaymentPanel returned null. OnlinePayment.java!",
+                                "Null Panel Error",
+                                JOptionPane.ERROR_MESSAGE);
+                        return;
+                    }
+
+                    frame.setContentPane(panel);
+                    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                    frame.setSize(490, 720);
+                    frame.setLocationRelativeTo(null);
+                    frame.setVisible(true);
+
+                    JFrame currentFrame = (JFrame) SwingUtilities.getWindowAncestor(seatSelectionPanel);
+                    if (currentFrame != null) {
+                        currentFrame.dispose();
+                    }
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
             }
+            seat.setEnabled(false);
+            idCounter++;
 
 
         } else {
