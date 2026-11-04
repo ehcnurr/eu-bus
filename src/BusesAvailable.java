@@ -2,6 +2,7 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.table.DefaultTableModel;
+import javax.xml.crypto.Data;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -122,6 +123,41 @@ public class BusesAvailable {
     }
 
     private void selectBus(int busNum) {
+        String query = """
+                SELECT status 
+                FROM buses
+                WHERE bus_num = ?
+                """;
+
+        try (
+            Connection con = DatabaseConnection.getConnection();
+            PreparedStatement stmt = con.prepareStatement(query);
+        ) {
+            stmt.setInt(1, busNum);
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    String status = rs.getString("status");
+
+                    if (status == null || status.equals("N/A") || status.equals("Has Left")) {
+                        JOptionPane.showMessageDialog(availableBusPanel,
+                                "Bus " + busNum + " is currently unavailable.",
+                                "Bus unavailable",
+                                JOptionPane.WARNING_MESSAGE);
+                        return;
+                    }
+
+                    if (status.equals("At station")) {
+                        displayWindow(busNum);
+                    }
+                }
+
+            }
+
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Database Error: " + e.getMessage());
+        }
+
         displayWindow(busNum);
 
     }
