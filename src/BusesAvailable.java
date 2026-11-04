@@ -2,7 +2,6 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.table.DefaultTableModel;
-import javax.xml.crypto.Data;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -17,6 +16,7 @@ public class BusesAvailable {
     private JButton btnSelectBus2;
     private JButton btnBusAvReturn;
     private JPanel availableBusPanel;
+    private JButton btnSelect;
 
     DefaultTableModel tableBuses = new DefaultTableModel();
 
@@ -30,6 +30,54 @@ public class BusesAvailable {
         tableBuses.addColumn("Status");
 
         tblBusesAvailable.setModel(tableBuses);
+
+// Set row height
+        tblBusesAvailable.setRowHeight(89);
+
+// Set table font
+        tblBusesAvailable.setFont(
+                new java.awt.Font("Segoe UI", java.awt.Font.PLAIN, 13)
+        );
+
+// Set table header font
+        tblBusesAvailable.getTableHeader().setFont(
+                new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 12)
+        );
+
+// Set column widths
+        tblBusesAvailable.getColumnModel().getColumn(0).setPreferredWidth(55);  // Bus Number
+        tblBusesAvailable.getColumnModel().getColumn(1).setPreferredWidth(85);  // Driver Name
+        tblBusesAvailable.getColumnModel().getColumn(2).setPreferredWidth(85);  // Arriving Time
+        tblBusesAvailable.getColumnModel().getColumn(3).setPreferredWidth(85);  // Departing Time
+        tblBusesAvailable.getColumnModel().getColumn(4).setPreferredWidth(65);  // Available Slots
+        tblBusesAvailable.getColumnModel().getColumn(5).setPreferredWidth(75);  // Status
+
+        tblBusesAvailable.getTableHeader().setPreferredSize(
+                new java.awt.Dimension(0, 86)
+        );
+
+        java.awt.Dimension buttonSize =
+                new java.awt.Dimension(120, 45);
+
+        btnSelect.setPreferredSize(new java.awt.Dimension(125, 60));
+        btnSelectBus1.setPreferredSize(buttonSize);
+        btnSelectBus2.setPreferredSize(buttonSize);
+        btnSelectBus3.setPreferredSize(buttonSize);
+        btnSelectBus4.setPreferredSize(buttonSize);
+        btnSelectBus5.setPreferredSize(buttonSize);
+
+        javax.swing.table.DefaultTableCellRenderer centerRenderer =
+                new javax.swing.table.DefaultTableCellRenderer();
+
+        centerRenderer.setHorizontalAlignment(
+                javax.swing.SwingConstants.CENTER
+        );
+
+        for (int i = 0; i < tblBusesAvailable.getColumnCount(); i++) {
+            tblBusesAvailable.getColumnModel()
+                    .getColumn(i)
+                    .setCellRenderer(centerRenderer);
+        }
 
         loadBuses();
 

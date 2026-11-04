@@ -1,79 +1,149 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="BusesAvailable">
-  <grid id="27dc6" binding="availableBusPanel" layout-manager="GridLayoutManager" row-count="7" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
-    <margin top="0" left="0" bottom="0" right="0"/>
+  <grid id="27dc6" binding="availableBusPanel" layout-manager="GridLayoutManager" row-count="5" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+    <margin top="10" left="10" bottom="10" right="10"/>
     <constraints>
       <xy x="20" y="20" width="500" height="400"/>
     </constraints>
-    <properties/>
+    <properties>
+      <background color="-1"/>
+      <font name="Arial Rounded MT Bold" style="1"/>
+    </properties>
     <border type="none"/>
     <children>
-      <component id="5d52a" class="javax.swing.JLabel">
+      <grid id="7e0e2" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+        <margin top="0" left="0" bottom="0" right="0"/>
         <constraints>
-          <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+          <grid row="0" column="0" row-span="1" col-span="2" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
-          <text value="BUSES AVAILABLE"/>
+          <background color="-9699312"/>
         </properties>
-      </component>
-      <scrollpane id="486f3">
-        <constraints>
-          <grid row="1" column="0" row-span="5" col-span="1" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
-        </constraints>
-        <properties/>
         <border type="none"/>
         <children>
-          <component id="65d9" class="javax.swing.JTable" binding="tblBusesAvailable">
-            <constraints/>
-            <properties/>
+          <component id="5d52a" class="javax.swing.JLabel">
+            <constraints>
+              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <font name="Arial Black" size="28" style="1"/>
+              <foreground color="-1"/>
+              <text value="BUSES AVAILABLE"/>
+            </properties>
           </component>
         </children>
-      </scrollpane>
-      <component id="ddad7" class="javax.swing.JButton" binding="btnSelectBus1">
+      </grid>
+      <grid id="f29dd" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+        <margin top="0" left="0" bottom="0" right="0"/>
         <constraints>
-          <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+          <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
-          <text value="SELECT BUS 1"/>
+          <background color="-1"/>
         </properties>
-      </component>
-      <component id="ccd37" class="javax.swing.JButton" binding="btnSelectBus5">
+        <border type="none"/>
+        <children>
+          <scrollpane id="486f3">
+            <constraints>
+              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <background color="-1"/>
+            </properties>
+            <border type="none"/>
+            <children>
+              <component id="65d9" class="javax.swing.JTable" binding="tblBusesAvailable">
+                <constraints/>
+                <properties/>
+              </component>
+            </children>
+          </scrollpane>
+        </children>
+      </grid>
+      <grid id="a377c" layout-manager="GridLayoutManager" row-count="6" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+        <margin top="1" left="1" bottom="0" right="0"/>
         <constraints>
-          <grid row="5" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+          <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
-          <text value="SELECT BUS 5"/>
+          <background color="-1"/>
         </properties>
-      </component>
-      <component id="6021e" class="javax.swing.JButton" binding="btnSelectBus4">
-        <constraints>
-          <grid row="4" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-        </constraints>
-        <properties>
-          <text value="SELECT BUS 4"/>
-        </properties>
-      </component>
-      <component id="fe38" class="javax.swing.JButton" binding="btnSelectBus3">
-        <constraints>
-          <grid row="3" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-        </constraints>
-        <properties>
-          <text value="SELECT BUS 3"/>
-        </properties>
-      </component>
-      <component id="89595" class="javax.swing.JButton" binding="btnSelectBus2">
-        <constraints>
-          <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-        </constraints>
-        <properties>
-          <text value="SELECT BUS 2"/>
-        </properties>
-      </component>
+        <border type="none"/>
+        <children>
+          <component id="ddad7" class="javax.swing.JButton" binding="btnSelectBus1">
+            <constraints>
+              <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <background color="-9699312"/>
+              <font name="Arial Black" style="1"/>
+              <foreground color="-1"/>
+              <text value="BUS 1"/>
+            </properties>
+          </component>
+          <component id="89595" class="javax.swing.JButton" binding="btnSelectBus2">
+            <constraints>
+              <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <background color="-9699312"/>
+              <font name="Arial Black" style="1"/>
+              <foreground color="-1"/>
+              <text value="BUS 2"/>
+            </properties>
+          </component>
+          <component id="fe38" class="javax.swing.JButton" binding="btnSelectBus3">
+            <constraints>
+              <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <background color="-9699312"/>
+              <font name="Arial Black" style="1"/>
+              <foreground color="-1"/>
+              <text value="BUS 3"/>
+            </properties>
+          </component>
+          <component id="6021e" class="javax.swing.JButton" binding="btnSelectBus4">
+            <constraints>
+              <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <background color="-9699312"/>
+              <font name="Arial Black" style="1"/>
+              <foreground color="-1"/>
+              <text value="BUS 4"/>
+            </properties>
+          </component>
+          <component id="ccd37" class="javax.swing.JButton" binding="btnSelectBus5">
+            <constraints>
+              <grid row="5" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <background color="-9699312"/>
+              <font name="Arial Black" style="1"/>
+              <foreground color="-1"/>
+              <text value="BUS 5"/>
+            </properties>
+          </component>
+          <component id="3b794" class="javax.swing.JButton" binding="btnSelect">
+            <constraints>
+              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <enabled value="false"/>
+              <text value="SELECT"/>
+            </properties>
+          </component>
+        </children>
+      </grid>
       <component id="6378f" class="javax.swing.JButton" binding="btnBusAvReturn">
         <constraints>
-          <grid row="6" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+          <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
+          <background color="-9699312"/>
+          <font name="Arial Black" style="1"/>
+          <foreground color="-1"/>
           <text value="RETURN"/>
         </properties>
       </component>

@@ -1,6 +1,8 @@
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.*;
+import java.awt.*;
 
 public class Main {
     private JButton btnStudentStaff;
@@ -8,7 +10,28 @@ public class Main {
     private JButton btnGuest;
     private JPanel mainPanel;
 
+
     public Main() {
+        // Initialize the GUI Designer components
+
+        // Customize Student/Staff button
+        btnStudentStaff.setOpaque(true);
+        btnStudentStaff.setContentAreaFilled(true);
+        btnStudentStaff.setBackground(new Color(128, 0, 32));
+        btnStudentStaff.setForeground(Color.WHITE);
+
+        // Customize Driver button
+        btnDriver.setOpaque(true);
+        btnDriver.setContentAreaFilled(true);
+        btnDriver.setBackground(new Color(128, 0, 32));
+        btnDriver.setForeground(Color.WHITE);
+
+        // Customize Guest button
+        btnGuest.setOpaque(true);
+        btnGuest.setContentAreaFilled(true);
+        btnGuest.setBackground(new Color(128, 0, 32));
+        btnGuest.setForeground(Color.WHITE);
+
         btnStudentStaff.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -127,4 +150,8 @@ public class Main {
         });
     }
 
+    private void createUIComponents() {
+        // TODO: place custom component creation code here
+        mainPanel = new BackgroundPanel();
+    }
 }
