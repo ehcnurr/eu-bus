@@ -157,9 +157,6 @@ public class BusesAvailable {
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Database Error: " + e.getMessage());
         }
-
-        displayWindow(busNum);
-
     }
 
     private void displayWindow(int busNum) {
