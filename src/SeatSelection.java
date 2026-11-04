@@ -52,19 +52,6 @@ public class SeatSelection {
         initializeSeatBoxes();
         setupSeatListeners();
 
-        try {
-            UIManager.setLookAndFeel(
-                    "com.sun.java.swing.plaf.windows.WindowsLookAndFeel"
-            );
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        SwingUtilities.invokeLater(() -> {
-            seatSelectionPanel.setVisible(true);
-        });
-
-
         btnSeatSelectReturn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
