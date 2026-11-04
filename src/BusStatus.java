@@ -121,7 +121,7 @@ public class BusStatus {
 
                     frame.setContentPane(panel);
                     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                    frame.setSize(500, 400);
+                    frame.setSize(490, 720);
                     frame.setLocationRelativeTo(null);
                     frame.setVisible(true);
 
@@ -198,7 +198,7 @@ public class BusStatus {
 
                     frame.setContentPane(form.getBusDetailsPanel());
                     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                    frame.setSize(500, 400);
+                    frame.setSize(490, 720);
                     frame.setLocationRelativeTo(null);
                     frame.setVisible(true);
 

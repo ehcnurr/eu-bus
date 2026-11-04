@@ -52,7 +52,7 @@ public class BusesAvailable {
 
                     frame.setContentPane(panel);
                     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                    frame.setSize(500, 400);
+                    frame.setSize(490, 720);
                     frame.setLocationRelativeTo(null);
                     frame.setVisible(true);
 
@@ -178,7 +178,7 @@ public class BusesAvailable {
 
             frame.setContentPane(panel);
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            frame.setSize(500, 400);
+            frame.setSize(380, 530);
             frame.setLocationRelativeTo(null);
             frame.setVisible(true);
 
