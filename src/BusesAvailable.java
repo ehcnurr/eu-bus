@@ -139,7 +139,7 @@ public class BusesAvailable {
                 if (rs.next()) {
                     String status = rs.getString("status");
 
-                    if (status == null || status.equals("N/A") || status.equals("Has Left")) {
+                    if (status == null || status.equals("N/A") || status.equals("Has left")) {
                         JOptionPane.showMessageDialog(availableBusPanel,
                                 "Bus " + busNum + " is currently unavailable.",
                                 "Bus unavailable",
