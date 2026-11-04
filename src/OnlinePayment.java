@@ -16,7 +16,17 @@ public class OnlinePayment {
                 String name = txtName.getText().trim();
                 String payment = (String)cmbEWalletBank.getSelectedItem();
                 String accNum = txtAccNum.getText().trim();
+
+                if (name.isEmpty() || accNum.isEmpty()) {
+                    JOptionPane.showMessageDialog(onlinePaymentPanel,
+                            "Name or Account number cannot be empty.");
+                    return;
+                }
             }
         });
+    }
+
+    public JPanel getOnlinePaymentPanel() {
+        return onlinePaymentPanel;
     }
 }
