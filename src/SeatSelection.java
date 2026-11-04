@@ -1,4 +1,5 @@
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.*;
@@ -6,6 +7,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.awt.Color;
+import javax.swing.JCheckBox;
 
 
 public class SeatSelection {
@@ -46,6 +49,19 @@ public class SeatSelection {
     public SeatSelection() {
         initializeSeatBoxes();
         setupSeatListeners();
+
+        try {
+            UIManager.setLookAndFeel(
+                    "com.sun.java.swing.plaf.windows.WindowsLookAndFeel"
+            );
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        SwingUtilities.invokeLater(() -> {
+            seatSelectionPanel.setVisible(true);
+        });
+
 
         btnSeatSelectReturn.addActionListener(new ActionListener() {
             @Override
