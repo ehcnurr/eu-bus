@@ -43,6 +43,8 @@ public class SeatSelection {
     private JPanel seatSelectionPanel;
     private int selectedBusNum;
 
+    private int idCounter = 1;
+
     private Map<String, JCheckBox> seatBoxes = new LinkedHashMap<>();
 
 
@@ -184,7 +186,31 @@ public class SeatSelection {
         );
 
         if (choice == JOptionPane.YES_OPTION) {
-            // code to open payment window mamaya q na gagawin
+            String[] options = {"Cash", "Online Payment"};
+
+            int paymentMethod = JOptionPane.showOptionDialog(null,
+                    "Choose a payment method:",
+                    "Choose payment method",
+                    JOptionPane.YES_NO_OPTION,
+                    JOptionPane.QUESTION_MESSAGE,
+                    null,
+                    options,
+                    options[0]);
+
+            if (paymentMethod == 0) {
+                JOptionPane.showMessageDialog(null,
+                        "PAYMENT SLIP\n\n" +
+                        "Reservation ID: " + idCounter +
+                        "\nBus Number: " + selectedBusNum +
+                        "\nSeat: " + seat +
+                        "\n\nPlease show this payment slip to assigned bus driver, along with the exact amount."
+                );
+
+            } else {
+
+            }
+
+
         } else {
             seat.setSelected(false);
         }
