@@ -11,6 +11,8 @@ public class BusStatus {
     private JButton btnStatusBack;
     private JPanel busStatusPanel;
     private JButton btnReset;
+    private JTabbedPane tabbedPane1;
+    private JTable table1;
     private int selectedBusNum;
     private String username;
 
