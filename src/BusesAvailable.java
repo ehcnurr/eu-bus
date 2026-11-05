@@ -133,9 +133,19 @@ public class BusesAvailable {
         tableBuses.setRowCount(0); // clear existing rows
 
         String query = """
-        SELECT bus_num, arrival, departing, status, available_slots, driver_name
-        FROM buses
-        ORDER BY bus_num
+        SELECT 
+            b.bus_num,
+            b.arrival,
+            b.departing,
+            b.status,
+            (b.total_slots - (
+                SELECT COUNT(*)
+                FROM seat_reservations sr
+                WHERE sr.bus_num = b.bus_num
+            )) AS available_slots,
+            b.driver_name
+        FROM buses b
+        ORDER BY b.bus_num
         """;
 
         try (Connection con = DatabaseConnection.getConnection();
