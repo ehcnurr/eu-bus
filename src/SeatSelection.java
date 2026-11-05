@@ -1,3 +1,4 @@
+import javax.print.attribute.standard.PresentationDirection;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -42,8 +43,6 @@ public class SeatSelection {
     private JButton btnSeatSelectReturn;
     private JPanel seatSelectionPanel;
     private int selectedBusNum;
-
-    private int idCounter = 1;
 
     private Map<String, JCheckBox> seatBoxes = new LinkedHashMap<>();
 
@@ -157,78 +156,123 @@ public class SeatSelection {
         }
     }
 
-    private void handleSeatSelection(JCheckBox seat) {
-        if (!(seat.isSelected())) {
-            return;
+    private boolean reserveSeat(String seatNum) {
+        String insertQuery = """
+                INSERT INTO seat_reservations (bus_num, seat_num)
+                VALUES (?, ?)
+                """;
+
+        String updateSlotsQuery = """
+                UPDATE buses 
+                SET available_slots = available_slots - 1
+                WHERE bus_num = ?
+                AND available_slots > 0
+                """;
+
+        try (Connection con = DatabaseConnection.getConnection();) {
+            con.setAutoCommit(false);
+
+            try (
+                PreparedStatement insertStmt = con.prepareStatement(insertQuery);
+                PreparedStatement updateStmt = con.prepareStatement(updateSlotsQuery);
+            ) {
+                insertStmt.setInt(1, selectedBusNum);
+                insertStmt.setString(2, seatNum);
+
+                insertStmt.executeUpdate();
+
+                updateStmt.setInt(1, selectedBusNum);
+
+                int updatedRows = updateStmt.executeUpdate();
+
+                if (updatedRows > 0) {
+                    con.commit();
+                    return true;
+                } else {
+                    con.rollback();
+
+                    JOptionPane.showMessageDialog(seatSelectionPanel,
+                            "No available slots remaining for this bus.");
+                    return false;
+                }
+            } catch (SQLException e) {
+                con.rollback();
+                JOptionPane.showMessageDialog(null, "Database Error: " + e.getMessage());
+            }
+
+
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null,
+            "Failed to reserve seat. It may already be taken.",
+                    "Reservation Failed",
+                    JOptionPane.WARNING_MESSAGE);
         }
+        return false;
+    }
 
-        String seatNum = seat.getText();
+    private void handleSeatSelection(JCheckBox seat) {
+        if (seat.isSelected()) {
+            String seatNum = seat.getText();
 
-        int choice = JOptionPane.showConfirmDialog(
-                seatSelectionPanel,
-                "Do you want to reserve " + seatNum + " on Bus " + selectedBusNum+"?",
-                "Confirm seat reservation",
-                JOptionPane.YES_NO_OPTION,
-                JOptionPane.QUESTION_MESSAGE
-        );
-
-        if (choice == JOptionPane.YES_OPTION) {
-            String[] options = {"Cash", "Online Payment"};
-
-            int paymentMethod = JOptionPane.showOptionDialog(null,
-                    "Choose a payment method:",
-                    "Choose payment method",
+            int choice = JOptionPane.showConfirmDialog(
+                    seatSelectionPanel,
+                    "Do you want to reserve " + seatNum + " on Bus " + selectedBusNum+"?",
+                    "Confirm seat reservation",
                     JOptionPane.YES_NO_OPTION,
-                    JOptionPane.QUESTION_MESSAGE,
-                    null,
-                    options,
-                    options[0]);
+                    JOptionPane.QUESTION_MESSAGE
+            );
 
-            if (paymentMethod == 0) {
-                JOptionPane.showMessageDialog(null,
-                        "PAYMENT SLIP\n\n" +
-                        "Reservation ID: " + idCounter +
-                        "\nBus Number: " + selectedBusNum +
-                        "\nSeat: " + seatNum +
-                        "\n\nPlease show this payment slip to assigned bus driver, along with the exact amount."
-                );
+            if (choice == JOptionPane.YES_OPTION) {
+
+                if (reserveSeat(seatNum)) {
+                    String[] options = {"Cash", "Online Payment"};
+
+                    int paymentMethod = JOptionPane.showOptionDialog(null,
+                            "Choose a payment method:",
+                            "Choose payment method",
+                            JOptionPane.YES_NO_OPTION,
+                            JOptionPane.QUESTION_MESSAGE,
+                            null,
+                            options,
+                            options[0]);
+
+                    if (paymentMethod == 0) {
+                        JOptionPane.showMessageDialog(null,
+                                "PAYMENT SLIP\n\n" +
+
+                                        "\nBus Number: " + selectedBusNum +
+                                        "\nSeat: " + seatNum +
+                                        "\nAmount to pay: ₱10.00" +
+                                        "\nAmount to pay: ₱10.00" +
+                                        "\n\nPlease show this payment slip to assigned bus driver, along with the exact amount."
+                        );
+
+                    } else if (paymentMethod == 1) {
+                        OnlinePayment onlinePayment = new OnlinePayment();
+
+                        JPanel panel = onlinePayment.getOnlinePaymentPanel();
+
+                        JFrame frame = new JFrame("Online Payment");
+                        frame.setContentPane(panel);
+                        frame.setSize(380, 530);
+                        frame.setLocationRelativeTo(null);
+                        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                        frame.setVisible(true);
+
+                        SwingUtilities.getWindowAncestor(seatSelectionPanel).dispose();
+                    }
+                    seat.setEnabled(false);
+
+                } else {
+                    seat.setSelected(false);
+                }
 
             } else {
-                try {
-                    JFrame frame = new JFrame("ONLINE PAYMENT");
-                    OnlinePayment form = new OnlinePayment();
-
-                    JPanel panel = form.getOnlinePaymentPanel();
-
-                    if (panel == null) {
-                        JOptionPane.showMessageDialog(null,
-                                "Error: getOnlinePaymentPanel returned null. OnlinePayment.java!",
-                                "Null Panel Error",
-                                JOptionPane.ERROR_MESSAGE);
-                        return;
-                    }
-
-                    frame.setContentPane(panel);
-                    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                    frame.setSize(490, 720);
-                    frame.setLocationRelativeTo(null);
-                    frame.setVisible(true);
-
-                    JFrame currentFrame = (JFrame) SwingUtilities.getWindowAncestor(seatSelectionPanel);
-                    if (currentFrame != null) {
-                        currentFrame.dispose();
-                    }
-                } catch (Exception ex) {
-                    ex.printStackTrace();
-                }
+                seat.setSelected(false);
             }
-            seat.setEnabled(false);
-            idCounter++;
-
-
-        } else {
-            seat.setSelected(false);
         }
+
+
     }
 
     private void setupSeatListeners() {
