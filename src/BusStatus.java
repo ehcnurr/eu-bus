@@ -12,7 +12,7 @@ public class BusStatus {
     private JPanel busStatusPanel;
     private JButton btnReset;
     private JTabbedPane tabbedPane1;
-    private JTable table1;
+    public JTable tblHistory;
     private int selectedBusNum;
     private String username;
 
