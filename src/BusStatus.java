@@ -4,6 +4,8 @@ import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.sql.ResultSet;
+import javax.swing.table.DefaultTableModel;
 
 public class BusStatus {
     private JButton btnAtStation;
@@ -19,6 +21,8 @@ public class BusStatus {
     public BusStatus(int busNum, String username) {
         this.selectedBusNum = busNum;
         this.username = username;
+
+        loadTransactHistory();
 
         btnAtStation.addActionListener(new ActionListener() {
             @Override
@@ -149,7 +153,7 @@ public class BusStatus {
             WHERE bus_num = ?
             """;
 
-                String resetDriverQuery = """
+            String resetDriverQuery = """
             UPDATE drivers
             SET selected_bus = 0
             WHERE username = ?
@@ -220,7 +224,66 @@ public class BusStatus {
                 }
             }
         });
+    }
 
+    private void loadTransactHistory() {
+        String query = """
+                SELECT
+                    reservation_id,
+                    bus_num,
+                    seat_num,
+                    passenger_name,
+                    payment_method,
+                    payment_provider,
+                    account_number,
+                    amount_paid,
+                    reserved_at
+                FROM transaction_history
+                WHERE driver_username = ?
+                ORDER BY reserved_at DESC
+                """;
+
+        String[] columns = {
+                "Reservation ID",
+                "Bus Number",
+                "Seat Number",
+                "Passenger Name",
+                "Payment Method",
+                "E-wallet / Bank",
+                "Account Number",
+                "Amount Paid",
+                "Date and Time Reserved"
+        };
+
+        DefaultTableModel history = new DefaultTableModel(columns, 0);
+
+        try (
+            Connection con = DatabaseConnection.getConnection();
+            PreparedStatement stmt = con.prepareStatement(query);
+        ) {
+            stmt.setString(1, username);
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    history.addRow(new Object[] {
+                            rs.getInt("reservation_id"),
+                            rs.getInt("bus_num"),
+                            rs.getString("seat_num"),
+                            rs.getString("passenger_name"),
+                            rs.getString("payment_method"),
+                            rs.getString("account_number"),
+                            rs.getBigDecimal("amount_paid"),
+                            rs.getTimestamp("reserved_at")
+                    });
+                }
+            }
+
+            tblHistory.setModel(history);
+
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(busStatusPanel,
+                    "Failed to show transaction history: " + e.getMessage());
+        }
     }
 
     public JPanel getBusStatusPanel() {
