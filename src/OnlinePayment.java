@@ -1,6 +1,7 @@
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.table.DefaultTableModel;
 
 public class OnlinePayment {
     private JTextField txtName;
@@ -8,8 +9,13 @@ public class OnlinePayment {
     private JComboBox cmbEWalletBank;
     private JTextField txtAccNum;
     private JButton btnConfirmTransac;
+    private int busNum;
+    private String seatNum;
 
-    public OnlinePayment() {
+    public OnlinePayment(int busNum, String seatNum) {
+        this.busNum = busNum;
+        this.seatNum = seatNum;
+
         btnConfirmTransac.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -22,7 +28,31 @@ public class OnlinePayment {
                             "Name or Account number cannot be empty.");
                     return;
                 }
+
+                boolean saved = TransactionHistory.saveTransaction(
+                        busNum,
+                        seatNum,
+                        name,
+                        "Online Payment",
+                        payment,
+                        accNum
+                );
+
+                if (!saved) {
+                    JOptionPane.showMessageDialog(
+                            onlinePaymentPanel,
+                            "Failed to save transaction."
+                    );
+                    return;
+                }
+
+                JOptionPane.showMessageDialog(
+                        onlinePaymentPanel,
+                        "Transaction recorded successfully."
+                );
             }
+
+
         });
     }
 
