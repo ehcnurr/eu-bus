@@ -224,48 +224,97 @@ public class SeatSelection {
 
             if (choice == JOptionPane.YES_OPTION) {
 
-                if (reserveSeat(seatNum)) {
-                    String[] options = {"Cash", "Online Payment"};
+                String passengerName = JOptionPane.showInputDialog(
+                        null,
+                        "Enter passenger name:"
+                );
 
-                    int paymentMethod = JOptionPane.showOptionDialog(null,
-                            "Choose a payment method:",
-                            "Choose payment method",
-                            JOptionPane.YES_NO_OPTION,
-                            JOptionPane.QUESTION_MESSAGE,
+                if (passengerName == null || passengerName.trim().isEmpty()) {
+                    JOptionPane.showMessageDialog(
                             null,
-                            options,
-                            options[0]);
+                            "Passenger name is required."
+                    );
 
-                    if (paymentMethod == 0) {
-                        JOptionPane.showMessageDialog(null,
-                                "PAYMENT SLIP\n\n" +
+                    seat.setSelected(false);
+                    return;
+                }
 
-                                        "\nBus Number: " + selectedBusNum +
-                                        "\nSeat: " + seatNum +
-                                        "\nAmount to pay: ₱10.00" +
-                                        "\nAmount to pay: ₱10.00" +
-                                        "\n\nPlease show this payment slip to assigned bus driver, along with the exact amount."
-                        );
+                passengerName = passengerName.trim();
 
-                    } else if (paymentMethod == 1) {
-                        OnlinePayment onlinePayment = new OnlinePayment();
+                String[] options = {"Cash", "Online Payment"};
 
-                        JPanel panel = onlinePayment.getOnlinePaymentPanel();
+                int paymentMethod = JOptionPane.showOptionDialog(
+                        null,
+                        "Choose a payment method:",
+                        "Choose payment method",
+                        JOptionPane.YES_NO_OPTION,
+                        JOptionPane.QUESTION_MESSAGE,
+                        null,
+                        options,
+                        options[0]
+                );
 
-                        JFrame frame = new JFrame("Online Payment");
-                        frame.setContentPane(panel);
-                        frame.setSize(380, 530);
-                        frame.setLocationRelativeTo(null);
-                        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-                        frame.setVisible(true);
+                if (paymentMethod == 0) {
 
-                        SwingUtilities.getWindowAncestor(seatSelectionPanel).dispose();
+                    // Reserve seat only after valid name
+                    if (!reserveSeat(seatNum)) {
+                        seat.setSelected(false);
+                        return;
                     }
-                    seat.setEnabled(false);
+
+                    boolean saved = TransactionHistory.saveTransaction(
+                            selectedBusNum,
+                            seatNum,
+                            passengerName,
+                            "Cash",
+                            "N/A",
+                            "N/A"
+                    );
+
+                    if (!saved) {
+                        JOptionPane.showMessageDialog(
+                                null,
+                                "Failed to save transaction."
+                        );
+                        return;
+                    }
+
+                    JOptionPane.showMessageDialog(
+                            null,
+                            "PAYMENT SLIP\n\n" +
+                                    "Bus Number: " + selectedBusNum +
+                                    "\nSeat: " + seatNum +
+                                    "\nPassenger Name: " + passengerName +
+                                    "\nAmount to pay: ₱10.00" +
+                                    "\n\nPlease show this payment slip to the assigned bus driver, " +
+                                    "along with the exact amount."
+                    );
+
+                } else if (paymentMethod == 1) {
+                    if (!reserveSeat(seatNum)) {
+                        seat.setSelected(false);
+                        return;
+                    }
+                    OnlinePayment onlinePayment =
+                            new OnlinePayment(selectedBusNum, seatNum);
+
+                    JPanel panel = onlinePayment.getOnlinePaymentPanel();
+
+                    JFrame frame = new JFrame("Online Payment");
+                    frame.setContentPane(panel);
+                    frame.setSize(380, 530);
+                    frame.setLocationRelativeTo(null);
+                    frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                    frame.setVisible(true);
+
+                    SwingUtilities.getWindowAncestor(seatSelectionPanel).dispose();
 
                 } else {
                     seat.setSelected(false);
+                    return;
                 }
+
+                seat.setEnabled(false);
 
             } else {
                 seat.setSelected(false);
