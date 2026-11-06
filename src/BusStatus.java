@@ -271,6 +271,7 @@ public class BusStatus {
                             rs.getString("seat_num"),
                             rs.getString("passenger_name"),
                             rs.getString("payment_method"),
+                            rs.getString("payment_provider"),
                             rs.getString("account_number"),
                             rs.getBigDecimal("amount_paid"),
                             rs.getTimestamp("reserved_at")

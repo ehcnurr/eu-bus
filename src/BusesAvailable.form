@@ -54,7 +54,9 @@
             <children>
               <component id="65d9" class="javax.swing.JTable" binding="tblBusesAvailable">
                 <constraints/>
-                <properties/>
+                <properties>
+                  <enabled value="false"/>
+                </properties>
               </component>
             </children>
           </scrollpane>

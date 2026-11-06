@@ -202,6 +202,10 @@ public class BusesAvailable {
                 String status = rs.getString("status");
                 String driver_name = rs.getString("driver_name");
 
+                if (status == null || status.equals("N/A") || status.equals("Has left")) {
+                    available_slots = 0;
+                }
+
                 tableBuses.addRow(new Object[]{
                         busNum,
                         driver_name,

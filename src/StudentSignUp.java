@@ -63,7 +63,7 @@ public class StudentSignUp {
 
                 if (!(password.equals(confPassword))) {
                     JOptionPane.showMessageDialog(null,
-                            "Passwords are not equal.");
+                            "Passwords do not match.");
                     return;
                 }
 
