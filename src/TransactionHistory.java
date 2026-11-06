@@ -4,7 +4,6 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 public class TransactionHistory {
-
     public static boolean saveTransaction(
             int busNum,
             String seatNum,

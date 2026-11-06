@@ -46,7 +46,6 @@ public class SeatSelection {
 
     private Map<String, JCheckBox> seatBoxes = new LinkedHashMap<>();
 
-
     public SeatSelection() {
         initializeSeatBoxes();
         setupSeatListeners();
@@ -255,7 +254,6 @@ public class SeatSelection {
                 );
 
                 if (paymentMethod == 0) {
-
                     // Reserve seat only after valid name
                     if (!reserveSeat(seatNum)) {
                         seat.setSelected(false);
@@ -290,13 +288,40 @@ public class SeatSelection {
                                     "along with the exact amount."
                     );
 
+                    try {
+                        JFrame frame = new JFrame("MAIN");
+                        Main form = new Main();
+
+                        JPanel panel = form.getMainPanel();
+                        if (panel == null) {
+                            JOptionPane.showMessageDialog(null,
+                                    "Error: getMainPanel returned null. Check Main.java!",
+                                    "Null Panel Error",
+                                    JOptionPane.ERROR_MESSAGE);
+                            return;
+                        }
+
+                        frame.setContentPane(panel);
+                        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                        frame.setSize(490, 720);
+                        frame.setLocationRelativeTo(null);
+                        frame.setVisible(true);
+
+                        JFrame currentFrame = (JFrame) SwingUtilities.getWindowAncestor(seatSelectionPanel);
+                        if (currentFrame != null) {
+                            currentFrame.dispose();
+                        }
+                    } catch (Exception ex) {
+                        ex.printStackTrace();
+                    }
+
                 } else if (paymentMethod == 1) {
                     if (!reserveSeat(seatNum)) {
                         seat.setSelected(false);
                         return;
                     }
                     OnlinePayment onlinePayment =
-                            new OnlinePayment(selectedBusNum, seatNum);
+                            new OnlinePayment(selectedBusNum, passengerName, seatNum);
 
                     JPanel panel = onlinePayment.getOnlinePaymentPanel();
 

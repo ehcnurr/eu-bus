@@ -127,14 +127,14 @@ public class BusesAvailable {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    JFrame frame = new JFrame("STUDENT / STAFF ACCOUNT SIGN UP");
+                    JFrame frame = new JFrame("MAIN");
                     Main form = new Main();
 
                     JPanel panel = form.getMainPanel();
 
                     if (panel == null) {
                         JOptionPane.showMessageDialog(null,
-                                "Error: getStudentSignUpPanel returned null. Check Main.java!",
+                                "Error: getMainPanel returned null. Check Main.java!",
                                 "Null Panel Error",
                                 JOptionPane.ERROR_MESSAGE);
                         return;

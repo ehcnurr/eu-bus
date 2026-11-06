@@ -15,6 +15,7 @@ public class Main {
     private JLabel lblSelectOption;
     private JLabel lblSubtitle;
 
+    String status = "";
 
     public Main() {
         // Initialize the GUI Designer components
@@ -91,6 +92,7 @@ public class Main {
         btnStudentStaff.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                status = "student/staff";
                 try {
                     JFrame frame = new JFrame("STUDENT / STAFF LOGIN");
                     studentLogIn form = new studentLogIn();
@@ -157,6 +159,7 @@ public class Main {
         btnGuest.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                status = "guest";
                 try {
                 JFrame frame = new JFrame("AVAILABLE BUSES");
                 BusesAvailable form = new BusesAvailable();

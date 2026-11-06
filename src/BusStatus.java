@@ -66,6 +66,7 @@ public class BusStatus {
                 }
             }
         });
+
         btnHasLeft.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -145,82 +146,89 @@ public class BusStatus {
         btnReset.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                int confirmation = JOptionPane.showConfirmDialog(null,
+                        "Confirm Submission of Transaction History?",
+                        "RESET CHOSEN BUS", JOptionPane.YES_NO_OPTION,
+                        JOptionPane.QUESTION_MESSAGE);
 
-                String resetBusQuery = """
-            UPDATE buses
-            SET status = 'N/A',
-                driver_name = 'N/A'
-            WHERE bus_num = ?
-            """;
+                if (confirmation == JOptionPane.YES_OPTION) {
 
-            String resetDriverQuery = """
-            UPDATE drivers
-            SET selected_bus = 0
-            WHERE username = ?
-            """;
+                    String resetBusQuery = """
+                    UPDATE buses
+                    SET status = 'N/A',
+                        driver_name = 'N/A'
+                    WHERE bus_num = ?
+                    """;
 
-                try (Connection con = DatabaseConnection.getConnection()) {
+                    String resetDriverQuery = """
+                    UPDATE drivers
+                    SET selected_bus = 0
+                    WHERE username = ?
+                    """;
 
-                    // Reset the selected bus
-                    try (PreparedStatement busStmt =
-                                 con.prepareStatement(resetBusQuery)) {
+                    try (Connection con = DatabaseConnection.getConnection()) {
 
-                        busStmt.setInt(1, selectedBusNum);
+                        // Reset the selected bus
+                        try (PreparedStatement busStmt =
+                                     con.prepareStatement(resetBusQuery)) {
 
-                        int busRows = busStmt.executeUpdate();
+                            busStmt.setInt(1, selectedBusNum);
 
-                        if (busRows == 0) {
-                            JOptionPane.showMessageDialog(
-                                    null, "Selected bus not found."
-                            );
-                            return;
+                            int busRows = busStmt.executeUpdate();
+
+                            if (busRows == 0) {
+                                JOptionPane.showMessageDialog(
+                                        null, "Selected bus not found."
+                                );
+                                return;
+                            }
                         }
-                    }
 
-                    // Reset the current driver's selected bus
-                    try (PreparedStatement driverStmt =
-                                 con.prepareStatement(resetDriverQuery)) {
+                        // Reset the current driver's selected bus
+                        try (PreparedStatement driverStmt =
+                                     con.prepareStatement(resetDriverQuery)) {
 
-                        driverStmt.setString(1, username);
+                            driverStmt.setString(1, username);
 
-                        int driverRows = driverStmt.executeUpdate();
+                            int driverRows = driverStmt.executeUpdate();
 
-                        if (driverRows == 0) {
-                            JOptionPane.showMessageDialog(
-                                    null, "Driver account not found."
-                            );
-                            return;
+                            if (driverRows == 0) {
+                                JOptionPane.showMessageDialog(
+                                        null, "Driver account not found."
+                                );
+                                return;
+                            }
                         }
+
+                        JOptionPane.showMessageDialog(
+                                null,
+                                "Thank you for your service! Your bus has been reset."
+                        );
+
+                        // Open the bus selection panel again
+                        JFrame frame = new JFrame("SELECT A BUS");
+                        BusDetails form = new BusDetails(username);
+
+                        frame.setContentPane(form.getBusDetailsPanel());
+                        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                        frame.setSize(490, 720);
+                        frame.setLocationRelativeTo(null);
+                        frame.setVisible(true);
+
+                        // Close the current BusStatus window
+                        JFrame currentFrame =
+                                (JFrame) SwingUtilities.getWindowAncestor(busStatusPanel);
+
+                        if (currentFrame != null) {
+                            currentFrame.dispose();
+                        }
+
+                    } catch (SQLException ex) {
+                        JOptionPane.showMessageDialog(
+                                null,
+                                "Database Error: " + ex.getMessage()
+                        );
                     }
-
-                    JOptionPane.showMessageDialog(
-                            null,
-                            "Thank you for your service! Your bus has been reset."
-                    );
-
-                    // Open the bus selection panel again
-                    JFrame frame = new JFrame("SELECT A BUS");
-                    BusDetails form = new BusDetails(username);
-
-                    frame.setContentPane(form.getBusDetailsPanel());
-                    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                    frame.setSize(490, 720);
-                    frame.setLocationRelativeTo(null);
-                    frame.setVisible(true);
-
-                    // Close the current BusStatus window
-                    JFrame currentFrame =
-                            (JFrame) SwingUtilities.getWindowAncestor(busStatusPanel);
-
-                    if (currentFrame != null) {
-                        currentFrame.dispose();
-                    }
-
-                } catch (SQLException ex) {
-                    JOptionPane.showMessageDialog(
-                            null,
-                            "Database Error: " + ex.getMessage()
-                    );
                 }
             }
         });
