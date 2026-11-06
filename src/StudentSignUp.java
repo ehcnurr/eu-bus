@@ -12,6 +12,7 @@ public class StudentSignUp {
     private JButton btnCreateAcc;
     private JButton btnSignUpReturn;
     private JPanel studentSignUpPanel;
+    private JPanel signUpCardPanel;
 
     public StudentSignUp() {
         btnSignUpReturn.addActionListener(new ActionListener() {
