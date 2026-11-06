@@ -1,4 +1,5 @@
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.table.DefaultTableModel;
@@ -17,6 +18,8 @@ public class BusesAvailable {
     private JButton btnBusAvReturn;
     private JPanel availableBusPanel;
     private JButton btnSelect;
+    private JLabel lblBusesAvailable;
+    private JPanel headerPanel;
 
     DefaultTableModel tableBuses = new DefaultTableModel();
 
@@ -32,7 +35,7 @@ public class BusesAvailable {
         tblBusesAvailable.setModel(tableBuses);
 
 // Set row height
-        tblBusesAvailable.setRowHeight(89);
+        tblBusesAvailable.setRowHeight(87);
 
 // Set table font
         tblBusesAvailable.setFont(
@@ -53,7 +56,7 @@ public class BusesAvailable {
         tblBusesAvailable.getColumnModel().getColumn(5).setPreferredWidth(75);  // Status
 
         tblBusesAvailable.getTableHeader().setPreferredSize(
-                new java.awt.Dimension(0, 86)
+                new java.awt.Dimension(0, 84)
         );
 
         java.awt.Dimension buttonSize =
@@ -78,6 +81,45 @@ public class BusesAvailable {
                     .getColumn(i)
                     .setCellRenderer(centerRenderer);
         }
+
+        // to change the border radius of the buttons
+
+        JButton[] buttons = {
+                btnSelectBus1,
+                btnSelectBus2,
+                btnSelectBus3,
+                btnSelectBus4,
+                btnSelectBus5,
+                btnBusAvReturn
+        };
+
+        for (JButton button : buttons) {
+
+            button.setBackground(new Color(128, 0, 32));
+            button.setForeground(Color.WHITE);
+
+            button.setFont(
+                    new Font("Segoe UI", Font.BOLD, 14)
+            );
+
+            button.setFocusPainted(false);
+            button.setBorderPainted(false);
+            button.setContentAreaFilled(false);
+            button.setOpaque(false);
+        }
+
+        // round the headerPanel
+
+        lblBusesAvailable.setOpaque(false);
+        lblBusesAvailable.setForeground(Color.WHITE);
+
+        lblBusesAvailable.setFont(
+                new Font("Segoe UI", Font.BOLD, 32)
+        );
+
+        lblBusesAvailable.setHorizontalAlignment(
+                SwingConstants.CENTER
+        );
 
         loadBuses();
 
@@ -252,5 +294,22 @@ public class BusesAvailable {
 
     public JPanel getAvailableBusPanel() {
         return availableBusPanel;
+    }
+
+    private void createUIComponents() {
+        // TODO: place custom component creation code here
+
+        // Custom rounded header panel
+        headerPanel = new RoundedPanel();
+
+        // Custom rounded buttons
+
+        btnSelectBus1 = new RoundedButton("BUS 1");
+        btnSelectBus2 = new RoundedButton("BUS 2");
+        btnSelectBus3 = new RoundedButton("BUS 3");
+        btnSelectBus4 = new RoundedButton("BUS 4");
+        btnSelectBus5 = new RoundedButton("BUS 5");
+
+        btnBusAvReturn = new RoundedButton("RETURN");
     }
 }

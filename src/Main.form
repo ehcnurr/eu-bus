@@ -1,42 +1,74 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="Main">
-  <grid id="27dc6" binding="mainPanel" custom-create="true" layout-manager="GridLayoutManager" row-count="4" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
-    <margin top="0" left="0" bottom="0" right="0"/>
+  <grid id="27dc6" binding="mainPanel" custom-create="true" layout-manager="GridLayoutManager" row-count="5" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="10">
+    <margin top="50" left="50" bottom="50" right="50"/>
     <constraints>
-      <xy x="20" y="20" width="500" height="400"/>
+      <xy x="20" y="20" width="500" height="422"/>
     </constraints>
     <properties>
       <background color="-1"/>
     </properties>
     <border type="none"/>
     <children>
-      <component id="2aab4" class="javax.swing.JLabel">
+      <component id="2aab4" class="javax.swing.JLabel" binding="lblUniversity">
         <constraints>
           <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
-          <text value="MSEUF"/>
+          <font name="Arial Black" size="16" style="1"/>
+          <foreground color="-8388576"/>
+          <text value="ENVERGA UNIVERSITY"/>
         </properties>
       </component>
-      <component id="a2127" class="javax.swing.JButton" binding="btnStudentStaff">
+      <grid id="f2e92" binding="instructionPanel" layout-manager="GridLayoutManager" row-count="2" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="5">
+        <margin top="20" left="20" bottom="20" right="20"/>
         <constraints>
-          <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+          <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties/>
+        <border type="none"/>
+        <children>
+          <component id="c242e" class="javax.swing.JLabel" binding="lblSelectOption">
+            <constraints>
+              <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <font name="Segoe UI" size="10"/>
+              <foreground color="-9699312"/>
+              <text value="Select an option to continue"/>
+            </properties>
+          </component>
+          <component id="2fd96" class="javax.swing.JLabel" binding="lblChooseUserType">
+            <constraints>
+              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <font name="Segoe UI" style="1"/>
+              <foreground color="-9699312"/>
+              <text value="Choose Your User Type"/>
+            </properties>
+          </component>
+        </children>
+      </grid>
+      <component id="a2127" class="javax.swing.JButton" binding="btnStudentStaff" custom-create="true">
+        <constraints>
+          <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
           <text value="STUDENT/STAFF"/>
         </properties>
       </component>
-      <component id="1e0a3" class="javax.swing.JButton" binding="btnDriver">
+      <component id="1e0a3" class="javax.swing.JButton" binding="btnDriver" custom-create="true">
         <constraints>
-          <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+          <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
           <text value="DRIVER"/>
         </properties>
       </component>
-      <component id="5b360" class="javax.swing.JButton" binding="btnGuest">
+      <component id="5b360" class="javax.swing.JButton" binding="btnGuest" custom-create="true">
         <constraints>
-          <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+          <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
           <text value="GUEST"/>

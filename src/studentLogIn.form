@@ -1,85 +1,145 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="studentLogIn">
-  <grid id="27dc6" binding="studentLoginPanel" layout-manager="GridLayoutManager" row-count="6" column-count="3" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
-    <margin top="0" left="0" bottom="0" right="0"/>
+  <grid id="27dc6" binding="studentLoginPanel" layout-manager="GridLayoutManager" row-count="4" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+    <margin top="20" left="20" bottom="20" right="20"/>
     <constraints>
-      <xy x="20" y="20" width="500" height="400"/>
+      <xy x="20" y="20" width="500" height="447"/>
     </constraints>
     <properties>
       <background color="-1"/>
     </properties>
     <border type="none"/>
     <children>
-      <component id="8a5b8" class="javax.swing.JLabel">
+      <grid id="f455e" binding="loginCardPanel" custom-create="true" layout-manager="GridLayoutManager" row-count="8" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="5">
+        <margin top="15" left="15" bottom="15" right="15"/>
         <constraints>
-          <grid row="0" column="1" row-span="1" col-span="2" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+          <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
-          <text value="STUDENT LOG IN"/>
+          <background color="-1"/>
         </properties>
-      </component>
-      <component id="f96d6" class="javax.swing.JTextField" binding="txtStudentUsername">
-        <constraints>
-          <grid row="1" column="1" row-span="1" col-span="2" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
-            <preferred-size width="150" height="-1"/>
+        <border type="empty"/>
+        <children>
+          <component id="8a5b8" class="javax.swing.JLabel" binding="lblTitle">
+            <constraints>
+              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <font name="Segoe UI" size="22" style="1"/>
+              <foreground color="-9699312"/>
+              <text value="STUDENT/STAFF LOG IN"/>
+            </properties>
+          </component>
+          <component id="c5016" class="javax.swing.JLabel">
+            <constraints>
+              <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <font name="Segoe UI"/>
+              <text value="Username"/>
+            </properties>
+          </component>
+          <component id="dcbe4" class="javax.swing.JLabel" binding="lblSignUpLink">
+            <constraints>
+              <grid row="7" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <text value="Don't have an account? Sign Up"/>
+            </properties>
+          </component>
+          <grid id="166ef" binding="usernamePanel" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+            <margin top="0" left="0" bottom="0" right="0"/>
+            <constraints>
+              <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties/>
+            <border type="line">
+              <color color="-5590347"/>
+            </border>
+            <children>
+              <component id="f96d6" class="javax.swing.JTextField" binding="txtStudentUsername" custom-create="true">
+                <constraints>
+                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="1" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                    <preferred-size width="150" height="35"/>
+                  </grid>
+                </constraints>
+                <properties>
+                  <enabled value="true"/>
+                </properties>
+              </component>
+            </children>
           </grid>
-        </constraints>
-        <properties/>
-      </component>
-      <component id="925f6" class="javax.swing.JTextField" binding="txtStudentPassword">
-        <constraints>
-          <grid row="2" column="1" row-span="1" col-span="2" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
-            <preferred-size width="150" height="-1"/>
+          <grid id="9e7cf" binding="passwordPanel" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+            <margin top="0" left="0" bottom="0" right="0"/>
+            <constraints>
+              <grid row="5" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties/>
+            <border type="line"/>
+            <children>
+              <component id="d7a1c" class="javax.swing.JPasswordField" binding="txtStudentPassword">
+                <constraints>
+                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="1" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                    <preferred-size width="150" height="35"/>
+                  </grid>
+                </constraints>
+                <properties/>
+              </component>
+            </children>
           </grid>
-        </constraints>
-        <properties/>
-      </component>
-      <component id="d9efb" class="javax.swing.JButton" binding="btnStudentLogIn">
+          <component id="3b65e" class="javax.swing.JLabel">
+            <constraints>
+              <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <font name="Segoe UI"/>
+              <text value="Password"/>
+            </properties>
+          </component>
+          <component id="d9efb" class="javax.swing.JButton" binding="btnStudentLogIn" custom-create="true">
+            <constraints>
+              <grid row="6" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <text value="LOG IN"/>
+            </properties>
+          </component>
+          <component id="7f7ac" class="javax.swing.JLabel" binding="lblWelcome">
+            <constraints>
+              <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <font name="Segoe UI" size="10"/>
+              <foreground color="-11774889"/>
+              <text value="Welcome! Please log in to continue."/>
+            </properties>
+          </component>
+        </children>
+      </grid>
+      <component id="b7ec0" class="javax.swing.JButton" binding="btnStudentLogReturn" custom-create="true">
         <constraints>
-          <grid row="3" column="1" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-        </constraints>
-        <properties>
-          <text value="LOG IN"/>
-        </properties>
-      </component>
-      <component id="dcbe4" class="javax.swing.JLabel">
-        <constraints>
-          <grid row="4" column="1" row-span="1" col-span="2" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
-        </constraints>
-        <properties>
-          <text value="If you don't have an account "/>
-        </properties>
-      </component>
-      <component id="c5016" class="javax.swing.JLabel">
-        <constraints>
-          <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-        </constraints>
-        <properties>
-          <text value="Username"/>
-        </properties>
-      </component>
-      <component id="3b65e" class="javax.swing.JLabel">
-        <constraints>
-          <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-        </constraints>
-        <properties>
-          <text value="Password"/>
-        </properties>
-      </component>
-      <component id="ae7f8" class="javax.swing.JButton" binding="btnSignUp">
-        <constraints>
-          <grid row="5" column="1" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-        </constraints>
-        <properties>
-          <text value="SIGN UP"/>
-        </properties>
-      </component>
-      <component id="b7ec0" class="javax.swing.JButton" binding="btnStudentLogReturn">
-        <constraints>
-          <grid row="5" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+          <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
           <text value="RETURN"/>
+        </properties>
+      </component>
+      <grid id="8300e" binding="goldLinePanel" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+        <margin top="0" left="0" bottom="0" right="0"/>
+        <constraints>
+          <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="1" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties/>
+        <border type="none"/>
+        <children/>
+      </grid>
+      <component id="dcfee" class="javax.swing.JLabel" binding="lblUniversityLogo">
+        <constraints>
+          <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <foreground color="-9699312"/>
+          <text value="Enverga University"/>
         </properties>
       </component>
     </children>
