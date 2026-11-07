@@ -327,7 +327,7 @@ public class SeatSelection {
 
                     JFrame frame = new JFrame("Online Payment");
                     frame.setContentPane(panel);
-                    frame.setSize(380, 530);
+                    frame.setSize(380, 400);
                     frame.setLocationRelativeTo(null);
                     frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                     frame.setVisible(true);

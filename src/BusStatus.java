@@ -1,4 +1,5 @@
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
@@ -6,6 +7,13 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.ResultSet;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.plaf.basic.BasicTabbedPaneUI;
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
+import java.awt.Rectangle;
+import java.awt.FontMetrics;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.JTableHeader;
 
 public class BusStatus {
     private JButton btnAtStation;
@@ -15,14 +23,49 @@ public class BusStatus {
     private JButton btnReset;
     private JTabbedPane tabbedPane1;
     public JTable tblHistory;
+    private JPanel goldLinePanel;
+    private JPanel spacePanel;
+    private JPanel statusCardPanel;
+    private JPanel transactionCardPanel;
+    private JButton btnTransacBack;
     private int selectedBusNum;
     private String username;
+
+    public JTabbedPane getTabbedPane1() {
+        return tabbedPane1;
+    }
+
+    public JTable getTblHistory() {
+        return tblHistory;
+    }
+
+    public JPanel getGoldLinePanel() {
+        return goldLinePanel;
+    }
+
+    public JPanel getSpacePanel() {
+        return spacePanel;
+    }
+
+    public JPanel getStatusCardPanel() {
+        return statusCardPanel;
+    }
+
+    public JPanel getTransactionCardPanel() {
+        return transactionCardPanel;
+    }
+
+    public JButton getBtnTransacBack() {
+        return btnTransacBack;
+    }
 
     public BusStatus(int busNum, String username) {
         this.selectedBusNum = busNum;
         this.username = username;
 
         loadTransactHistory();
+
+        new BusStatusUI(this);
 
         btnAtStation.addActionListener(new ActionListener() {
             @Override
@@ -245,6 +288,37 @@ public class BusStatus {
                 }
             }
         });
+        btnTransacBack.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    JFrame frame = new JFrame("MAIN");
+                    Main form = new Main();
+
+                    JPanel panel = form.getMainPanel();
+                    if (panel == null) {
+                        JOptionPane.showMessageDialog(null,
+                                "Error: getMainPanel returned null. Check Main.java!",
+                                "Null Panel Error",
+                                JOptionPane.ERROR_MESSAGE);
+                        return;
+                    }
+
+                    frame.setContentPane(panel);
+                    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                    frame.setSize(490, 720);
+                    frame.setLocationRelativeTo(null);
+                    frame.setVisible(true);
+
+                    JFrame currentFrame = (JFrame) SwingUtilities.getWindowAncestor(busStatusPanel);
+                    if (currentFrame != null) {
+                        currentFrame.dispose();
+                    }
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+            }
+        });
     }
 
     private void loadTransactHistory() {
@@ -340,4 +414,18 @@ public class BusStatus {
     public JPanel getBusStatusPanel() {
         return busStatusPanel;
     }
+
+
+    private void createUIComponents() {
+        // TODO: place custom component creation code here
+        statusCardPanel = new RoundedPanel();
+        transactionCardPanel = new RoundedPanel();
+        btnAtStation = new RoundedButton("AT STATION");
+        btnHasLeft = new RoundedButton("HAS LEFT");
+        btnReset = new RoundedButton("RESET BUS");
+        btnStatusBack = new RoundedButton("BACK");
+        btnTransacBack = new RoundedButton("BACK" );
+    }
+
+
 }

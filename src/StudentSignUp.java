@@ -1,20 +1,83 @@
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
 public class StudentSignUp {
     private JTextField txtCreateUsername;
-    private JTextField txtCreatePassword;
-    private JTextField txtConfirmPassword;
+    private JPasswordField txtCreatePassword;
+    private JPasswordField txtConfirmPassword;
     private JButton btnCreateAcc;
     private JButton btnSignUpReturn;
     private JPanel studentSignUpPanel;
     private JPanel signUpCardPanel;
+    private JPanel usernamePanel;
+    private JPanel passwordPanel;
+    private JPanel confirmPassPanel;
+    private JLabel lblUniversityLogo;
+    private JLabel lblTitle;
+    private JPanel goldLinePanel;
+    private JLabel lblEnter;
+
+    public JTextField getTxtCreateUsername() {
+        return txtCreateUsername;
+    }
+
+    public JPasswordField getTxtCreatePassword() {
+        return txtCreatePassword;
+    }
+
+    public JPasswordField getTxtConfirmPassword() {
+        return txtConfirmPassword;
+    }
+
+    public JButton getBtnCreateAcc() {
+        return btnCreateAcc;
+    }
+
+    public JButton getBtnSignUpReturn() {
+        return btnSignUpReturn;
+    }
+
+    public JPanel getSignUpCardPanel() {
+        return signUpCardPanel;
+    }
+
+    public JPanel getUsernamePanel() {
+        return usernamePanel;
+    }
+
+    public JPanel getPasswordPanel() {
+        return passwordPanel;
+    }
+
+    public JPanel getConfirmPassPanel() {
+        return confirmPassPanel;
+    }
+
+    public JLabel getLblUniversityLogo() {
+        return lblUniversityLogo;
+    }
+
+    public JLabel getLblTitle() {
+        return lblTitle;
+    }
+
+    public JPanel getGoldLinePanel() {
+        return goldLinePanel;
+    }
+
+    public JLabel getLblEnter() {
+        return lblEnter;
+    }
 
     public StudentSignUp() {
+        new StudentSignUpUI(this);
+
         btnSignUpReturn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -99,5 +162,14 @@ public class StudentSignUp {
 
     public JPanel getStudentSignUpPanel() {
         return studentSignUpPanel;
+    }
+
+    private void createUIComponents() {
+        // TODO: place custom component creation code here
+        btnSignUpReturn = new RoundedButton("RETURN");
+        btnCreateAcc= new RoundedButton("CREATE ACCOUNT");
+        signUpCardPanel = new RoundedPanel();
+
+        txtCreateUsername = new PlaceholderTextField("Enter your username");
     }
 }

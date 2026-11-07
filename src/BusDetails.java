@@ -1,10 +1,15 @@
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import javax.swing.*;
+import javax.swing.border.*;
+import java.awt.event.*;
+import java.sql.*;
 
 public class BusDetails {
     private JPanel busDetailsPanel;
@@ -13,10 +18,81 @@ public class BusDetails {
     private JTextField txtDepartingTime;
     private JButton btnSelectBus;
     private JButton btnBusDetailsReturn;
+    private JPanel arrivingTimePanel;
+    private JPanel departingTimePanel;
+    private JPanel busInfoCardPanel;
+    private JPanel goldLinePanel;
+    private JLabel lblUniversity;
     private String loggedInUsername;
+    private JLabel lblSubtitle;
+    private JLabel lblSched;
+    private JLabel lblChoose;
+    private JLabel lblBottom;
+
+    public JComboBox getCmbChooseBus() {
+        return cmbChooseBus;
+    }
+
+    public JTextField getTxtArrivingTime() {
+        return txtArrivingTime;
+    }
+
+    public JTextField getTxtDepartingTime() {
+        return txtDepartingTime;
+    }
+
+    public JButton getBtnSelectBus() {
+        return btnSelectBus;
+    }
+
+    public JButton getBtnBusDetailsReturn() {
+        return btnBusDetailsReturn;
+    }
+
+    public JPanel getArrivingTimePanel() {
+        return arrivingTimePanel;
+    }
+
+    public JPanel getDepartingTimePanel() {
+        return departingTimePanel;
+    }
+
+    public JPanel getBusInfoCardPanel() {
+        return busInfoCardPanel;
+    }
+
+    public JPanel getGoldLinePanel() {
+        return goldLinePanel;
+    }
+
+    public JLabel getLblUniversity() {
+        return lblUniversity;
+    }
+
+    public String getLoggedInUsername() {
+        return loggedInUsername;
+    }
+
+    public JLabel getLblSubtitle() {
+        return lblSubtitle;
+    }
+
+    public JLabel getLblSched() {
+        return lblSched;
+    }
+
+    public JLabel getLblChoose() {
+        return lblChoose;
+    }
+
+    public JLabel getLblBottom() {
+        return lblBottom;
+    }
 
     public BusDetails(String username) {
         this.loggedInUsername = username;
+
+        new BusDetailsUI(this);
 
         cmbChooseBus.addActionListener(new ActionListener() {
             @Override
@@ -234,6 +310,16 @@ public class BusDetails {
 
     public JPanel getBusDetailsPanel() {
         return busDetailsPanel;
+    }
+
+    private void createUIComponents() {
+        // TODO: place custom component creation code here
+        btnSelectBus = new RoundedButton("SELECT BUS");
+        btnBusDetailsReturn = new RoundedButton("RETURN");
+        busInfoCardPanel = new RoundedPanel();
+        arrivingTimePanel = new RoundedPanel();
+        departingTimePanel = new RoundedPanel();
+        // cmbChooseBus = new RoundedButton(); // not working
     }
 }
 

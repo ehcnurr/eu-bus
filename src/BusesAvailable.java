@@ -20,6 +20,76 @@ public class BusesAvailable {
     private JButton btnSelect;
     private JLabel lblBusesAvailable;
     private JPanel headerPanel;
+    private JPanel selectionPanel;
+    private JPanel tablePanel;
+    private JPanel goldLinePanel;
+    private JLabel lblSubtitle;
+    private JScrollPane tblScrollPane;
+    private JLabel lblBusIcon;
+
+    public JTable getTblBusesAvailable() {
+        return tblBusesAvailable;
+    }
+
+    public JButton getBtnSelectBus1() {
+        return btnSelectBus1;
+    }
+
+    public JButton getBtnSelectBus2() {
+        return btnSelectBus2;
+    }
+
+    public JButton getBtnSelectBus3() {
+        return btnSelectBus3;
+    }
+
+    public JButton getBtnSelectBus4() {
+        return btnSelectBus4;
+    }
+
+    public JButton getBtnSelectBus5() {
+        return btnSelectBus5;
+    }
+
+    public JButton getBtnBusAvReturn() {
+        return btnBusAvReturn;
+    }
+
+    public JButton getBtnSelect() {
+        return btnSelect;
+    }
+
+    public JLabel getLblBusesAvailable() {
+        return lblBusesAvailable;
+    }
+
+    public JPanel getHeaderPanel() {
+        return headerPanel;
+    }
+
+    public JPanel getSelectionPanel() {
+        return selectionPanel;
+    }
+
+    public JPanel getTablePanel() {
+        return tablePanel;
+    }
+
+    public JPanel getGoldLinePanel() {
+        return goldLinePanel;
+    }
+
+    public JLabel getLblSubtitle() {
+        return lblSubtitle;
+    }
+
+    public JScrollPane getTblScrollPane() {
+        return tblScrollPane;
+    }
+
+    public JLabel getLblBusIcon() {
+        return lblBusIcon;
+    }
 
     DefaultTableModel tableBuses = new DefaultTableModel();
 
@@ -34,94 +104,9 @@ public class BusesAvailable {
 
         tblBusesAvailable.setModel(tableBuses);
 
-// Set row height
-        tblBusesAvailable.setRowHeight(87);
-
-// Set table font
-        tblBusesAvailable.setFont(
-                new java.awt.Font("Segoe UI", java.awt.Font.PLAIN, 13)
-        );
-
-// Set table header font
-        tblBusesAvailable.getTableHeader().setFont(
-                new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 12)
-        );
-
-// Set column widths
-        tblBusesAvailable.getColumnModel().getColumn(0).setPreferredWidth(55);  // Bus Number
-        tblBusesAvailable.getColumnModel().getColumn(1).setPreferredWidth(85);  // Driver Name
-        tblBusesAvailable.getColumnModel().getColumn(2).setPreferredWidth(85);  // Arriving Time
-        tblBusesAvailable.getColumnModel().getColumn(3).setPreferredWidth(85);  // Departing Time
-        tblBusesAvailable.getColumnModel().getColumn(4).setPreferredWidth(65);  // Available Slots
-        tblBusesAvailable.getColumnModel().getColumn(5).setPreferredWidth(75);  // Status
-
-        tblBusesAvailable.getTableHeader().setPreferredSize(
-                new java.awt.Dimension(0, 84)
-        );
-
-        java.awt.Dimension buttonSize =
-                new java.awt.Dimension(120, 45);
-
-        btnSelect.setPreferredSize(new java.awt.Dimension(125, 60));
-        btnSelectBus1.setPreferredSize(buttonSize);
-        btnSelectBus2.setPreferredSize(buttonSize);
-        btnSelectBus3.setPreferredSize(buttonSize);
-        btnSelectBus4.setPreferredSize(buttonSize);
-        btnSelectBus5.setPreferredSize(buttonSize);
-
-        javax.swing.table.DefaultTableCellRenderer centerRenderer =
-                new javax.swing.table.DefaultTableCellRenderer();
-
-        centerRenderer.setHorizontalAlignment(
-                javax.swing.SwingConstants.CENTER
-        );
-
-        for (int i = 0; i < tblBusesAvailable.getColumnCount(); i++) {
-            tblBusesAvailable.getColumnModel()
-                    .getColumn(i)
-                    .setCellRenderer(centerRenderer);
-        }
-
-        // to change the border radius of the buttons
-
-        JButton[] buttons = {
-                btnSelectBus1,
-                btnSelectBus2,
-                btnSelectBus3,
-                btnSelectBus4,
-                btnSelectBus5,
-                btnBusAvReturn
-        };
-
-        for (JButton button : buttons) {
-
-            button.setBackground(new Color(128, 0, 32));
-            button.setForeground(Color.WHITE);
-
-            button.setFont(
-                    new Font("Segoe UI", Font.BOLD, 14)
-            );
-
-            button.setFocusPainted(false);
-            button.setBorderPainted(false);
-            button.setContentAreaFilled(false);
-            button.setOpaque(false);
-        }
-
-        // round the headerPanel
-
-        lblBusesAvailable.setOpaque(false);
-        lblBusesAvailable.setForeground(Color.WHITE);
-
-        lblBusesAvailable.setFont(
-                new Font("Segoe UI", Font.BOLD, 32)
-        );
-
-        lblBusesAvailable.setHorizontalAlignment(
-                SwingConstants.CENTER
-        );
-
         loadBuses();
+
+        new BusesAvailableUI(this);
 
         btnBusAvReturn.addActionListener(new ActionListener() {
             @Override
@@ -295,18 +280,16 @@ public class BusesAvailable {
         }
     }
 
-
     public JPanel getAvailableBusPanel() {
         return availableBusPanel;
     }
 
     private void createUIComponents() {
         // TODO: place custom component creation code here
-
-        // Custom rounded header panel
         headerPanel = new RoundedPanel();
-
-        // Custom rounded buttons
+        tablePanel = new RoundedPanel();
+        selectionPanel = new RoundedPanel();
+        tblScrollPane = new RoundedScrollPane(tblBusesAvailable);
 
         btnSelectBus1 = new RoundedButton("BUS 1");
         btnSelectBus2 = new RoundedButton("BUS 2");
@@ -315,5 +298,7 @@ public class BusesAvailable {
         btnSelectBus5 = new RoundedButton("BUS 5");
 
         btnBusAvReturn = new RoundedButton("RETURN");
+
+        lblBusIcon = new JLabel();
     }
 }

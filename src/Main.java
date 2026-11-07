@@ -13,81 +13,44 @@ public class Main {
     private JPanel instructionPanel;
     private JLabel lblChooseUserType;
     private JLabel lblSelectOption;
-    private JLabel lblSubtitle;
+    private JLabel lblSubtitle = new JLabel("SCHOOL BUS SEAT RESERVATION");
+
+    public JButton getBtnStudentStaff() {
+        return btnStudentStaff;
+    }
+
+    public JButton getBtnDriver() {
+        return btnDriver;
+    }
+
+    public JButton getBtnGuest() {
+        return btnGuest;
+    }
+
+    public JLabel getLblUniversity() {
+        return lblUniversity;
+    }
+
+    public JPanel getInstructionPanel() {
+        return instructionPanel;
+    }
+
+    public JLabel getLblChooseUserType() {
+        return lblChooseUserType;
+    }
+
+    public JLabel getLblSelectOption() {
+        return lblSelectOption;
+    }
+
+    public JLabel getLblSubtitle() {
+        return lblSubtitle;
+    }
 
     Payment payment = new Payment();
 
     public Main() {
-        // Initialize the GUI Designer components
-
-        // Customize Student/Staff button
-
-        try {
-            // UNIVERSITY LOGO
-            lblUniversity.setIcon(
-                    getIcon("mseuf-logo.png", 95, 95)
-            );
-
-            lblUniversity.setText("MSEUF");
-
-            lblUniversity.setFont(
-                    new Font("Segoe UI", Font.BOLD, 22)
-            );
-
-            lblUniversity.setForeground(new Color(128, 0, 32));
-
-// Put text BELOW the logo
-            lblUniversity.setHorizontalAlignment(
-                    SwingConstants.CENTER
-            );
-
-            lblUniversity.setHorizontalTextPosition(
-                    SwingConstants.CENTER
-            );
-
-            lblUniversity.setVerticalTextPosition(
-                    SwingConstants.BOTTOM
-            );
-
-            lblUniversity.setIconTextGap(10);
-
-// SUBTITLE
-            lblSubtitle = new JLabel("SCHOOL BUS SEAT RESERVATION");
-
-            lblSubtitle.setFont(
-                    new Font("Segoe UI", Font.PLAIN, 15)
-            );
-
-            lblSubtitle.setForeground(Color.GRAY);
-
-            lblSubtitle.setAlignmentX(Component.CENTER_ALIGNMENT);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        instructionPanel.removeAll();
-
-        instructionPanel.setLayout(
-                new BoxLayout(instructionPanel, BoxLayout.Y_AXIS)
-        );
-
-        instructionPanel.setOpaque(false);
-
-        lblChooseUserType.setAlignmentX(
-                Component.CENTER_ALIGNMENT
-        );
-
-        lblSelectOption.setAlignmentX(
-                Component.CENTER_ALIGNMENT
-        );
-
-        instructionPanel.add(lblChooseUserType);
-        instructionPanel.add(Box.createVerticalStrut(5));
-        instructionPanel.add(lblSelectOption);
-
-        customizeButtons();
-
-        buildCenteredLayout();
+        new MainUI(this);
 
         btnStudentStaff.addActionListener(new ActionListener() {
             @Override
@@ -211,150 +174,6 @@ public class Main {
         });
     }
 
-    private ImageIcon getIcon(String filename, int width, int height) {
-
-        ImageIcon icon = new ImageIcon(
-                getClass().getResource("/images/" + filename)
-        );
-
-        Image image = icon.getImage().getScaledInstance(
-                width,
-                height,
-                Image.SCALE_SMOOTH
-        );
-
-        return new ImageIcon(image);
-    }
-
-    private void customizeButtons() {
-
-        Color burgundy = new Color(128, 0, 32);
-
-        JButton[] buttons = {
-                btnStudentStaff,
-                btnDriver,
-                btnGuest
-        };
-
-        for (JButton button : buttons) {
-
-            button.setBackground(burgundy);
-            button.setForeground(Color.WHITE);
-
-            button.setFont(
-                    new Font("Segoe UI", Font.BOLD, 16)
-            );
-
-            button.setPreferredSize(
-                    new Dimension(420, 55)
-            );
-
-            button.setMinimumSize(
-                    new Dimension(100, 55)
-            );
-
-            button.setMaximumSize(
-                    new Dimension(Integer.MAX_VALUE, 55)
-            );
-
-            button.setFocusPainted(false);
-            button.setBorderPainted(false);
-        }
-    }
-
-
-    private void buildCenteredLayout() {
-
-        JPanel contentPanel = new JPanel();
-
-        contentPanel.setLayout(
-                new BoxLayout(contentPanel, BoxLayout.Y_AXIS)
-        );
-
-        contentPanel.setOpaque(false);
-
-        // MARGINS FROM THE PANEL CORNERS
-        contentPanel.setBorder(
-                BorderFactory.createEmptyBorder(
-                        30, 35, 30, 35
-                )
-        );
-
-        // UNIVERSITY LOGO AND TITLE
-        lblUniversity.setAlignmentX(Component.CENTER_ALIGNMENT);
-        lblSubtitle.setAlignmentX(Component.CENTER_ALIGNMENT);
-
-        // INSTRUCTIONS
-        instructionPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
-
-        // BUTTONS
-        JButton[] buttons = {
-                btnStudentStaff,
-                btnDriver,
-                btnGuest
-        };
-
-        for (JButton button : buttons) {
-            button.setAlignmentX(Component.CENTER_ALIGNMENT);
-        }
-
-        // TOP SECTION
-        contentPanel.add(lblUniversity);
-
-        contentPanel.add(Box.createVerticalStrut(5));
-
-        contentPanel.add(lblSubtitle);
-
-        // DIVIDER / SPACING
-
-        contentPanel.add(Box.createVerticalStrut(20));
-
-        JSeparator separator = new JSeparator(SwingConstants.HORIZONTAL);
-
-        separator.setForeground(Color.BLACK);
-        separator.setBackground(Color.BLACK);
-        separator.setPreferredSize(new Dimension(200, 4));
-
-        contentPanel.add(separator);
-
-        contentPanel.add(Box.createVerticalStrut(30));
-
-
-
-        // INSTRUCTIONS
-        contentPanel.add(instructionPanel);
-
-        contentPanel.add(Box.createVerticalStrut(50));
-
-        // BUTTONS
-        contentPanel.add(btnStudentStaff);
-
-        contentPanel.add(Box.createVerticalStrut(25));
-
-        contentPanel.add(btnDriver);
-
-        contentPanel.add(Box.createVerticalStrut(25));
-
-        contentPanel.add(btnGuest);
-
-        // CENTER EVERYTHING
-        mainPanel.removeAll();
-
-        mainPanel.setLayout(new GridBagLayout());
-
-        GridBagConstraints gbc = new GridBagConstraints();
-
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        gbc.weightx = 1.0;
-        gbc.anchor = GridBagConstraints.CENTER;
-
-        mainPanel.add(contentPanel, gbc);
-
-        mainPanel.revalidate();
-        mainPanel.repaint();
-    }
     private void createUIComponents() {
         btnStudentStaff = new RoundedButton("STUDENT/STAFF");
         btnDriver = new RoundedButton("DRIVER");
@@ -362,5 +181,4 @@ public class Main {
 
         mainPanel = new BackgroundPanel();
     }
-
 }

@@ -1,95 +1,192 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="BusDetails">
-  <grid id="27dc6" binding="busDetailsPanel" layout-manager="GridLayoutManager" row-count="5" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
-    <margin top="0" left="0" bottom="0" right="0"/>
+  <grid id="27dc6" binding="busDetailsPanel" layout-manager="GridLayoutManager" row-count="9" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+    <margin top="20" left="20" bottom="20" right="20"/>
     <constraints>
-      <xy x="20" y="20" width="500" height="400"/>
+      <xy x="20" y="20" width="500" height="483"/>
     </constraints>
     <properties>
-      <background color="-1"/>
+      <background color="-526862"/>
     </properties>
     <border type="none"/>
     <children>
-      <component id="be38a" class="javax.swing.JLabel">
+      <component id="be38a" class="javax.swing.JLabel" binding="lblUniversity">
         <constraints>
-          <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+          <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
-          <text value="WELCOME"/>
+          <text value="MSEUF"/>
         </properties>
       </component>
-      <component id="6bd41" class="javax.swing.JComboBox" binding="cmbChooseBus">
+      <grid id="13e6" binding="busInfoCardPanel" custom-create="true" layout-manager="GridLayoutManager" row-count="4" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+        <margin top="15" left="15" bottom="15" right="15"/>
         <constraints>
-          <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+          <grid row="5" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
-          <model>
-            <item value="Bus 1"/>
-            <item value="Bus 2"/>
-            <item value="Bus 3"/>
-            <item value="Bus 4"/>
-            <item value="Bus 5"/>
-          </model>
+          <background color="-525825"/>
         </properties>
-      </component>
-      <component id="f0929" class="javax.swing.JTextField" binding="txtArrivingTime">
-        <constraints>
-          <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
-            <preferred-size width="150" height="-1"/>
+        <border type="none"/>
+        <children>
+          <component id="c4cb8" class="javax.swing.JLabel">
+            <constraints>
+              <grid row="0" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <font name="Segoe UI" size="14"/>
+              <text value="Bus Information"/>
+            </properties>
+          </component>
+          <component id="d403" class="javax.swing.JLabel" binding="lblChoose">
+            <constraints>
+              <grid row="1" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <font name="Segoe Fluent Icons" size="11"/>
+              <foreground color="-7038050"/>
+              <text value="CHOOSE A BUS"/>
+            </properties>
+          </component>
+          <component id="6bd41" class="javax.swing.JComboBox" binding="cmbChooseBus">
+            <constraints>
+              <grid row="2" column="0" row-span="1" col-span="2" vsize-policy="1" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <model>
+                <item value="Bus 1"/>
+                <item value="Bus 2"/>
+                <item value="Bus 3"/>
+                <item value="Bus 4"/>
+                <item value="Bus 5"/>
+              </model>
+            </properties>
+          </component>
+          <grid id="51c38" binding="arrivingTimePanel" custom-create="true" layout-manager="GridLayoutManager" row-count="2" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+            <margin top="8" left="8" bottom="8" right="8"/>
+            <constraints>
+              <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <background color="-526862"/>
+            </properties>
+            <border type="none"/>
+            <children>
+              <component id="f0929" class="javax.swing.JTextField" binding="txtArrivingTime">
+                <constraints>
+                  <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="1" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                    <preferred-size width="150" height="-1"/>
+                  </grid>
+                </constraints>
+                <properties>
+                  <editable value="false"/>
+                </properties>
+              </component>
+              <component id="2f0" class="javax.swing.JLabel">
+                <constraints>
+                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <font name="Segoe UI"/>
+                  <text value="ARRIVING TIME"/>
+                </properties>
+              </component>
+            </children>
           </grid>
-        </constraints>
-        <properties>
-          <editable value="false"/>
-        </properties>
-      </component>
-      <component id="32e2a" class="javax.swing.JTextField" binding="txtDepartingTime">
-        <constraints>
-          <grid row="3" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
-            <preferred-size width="150" height="-1"/>
+          <grid id="6f6a6" binding="departingTimePanel" custom-create="true" layout-manager="GridLayoutManager" row-count="2" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+            <margin top="8" left="8" bottom="8" right="8"/>
+            <constraints>
+              <grid row="3" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <background color="-526862"/>
+            </properties>
+            <border type="none"/>
+            <children>
+              <component id="32e2a" class="javax.swing.JTextField" binding="txtDepartingTime">
+                <constraints>
+                  <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="1" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                    <preferred-size width="150" height="-1"/>
+                  </grid>
+                </constraints>
+                <properties>
+                  <editable value="false"/>
+                  <text value=""/>
+                </properties>
+              </component>
+              <component id="ece78" class="javax.swing.JLabel">
+                <constraints>
+                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <font name="Segoe UI"/>
+                  <text value="DEPARTING TIME"/>
+                </properties>
+              </component>
+            </children>
           </grid>
-        </constraints>
-        <properties>
-          <editable value="false"/>
-        </properties>
-      </component>
-      <component id="45200" class="javax.swing.JLabel">
+        </children>
+      </grid>
+      <grid id="c323a" binding="goldLinePanel" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+        <margin top="0" left="0" bottom="0" right="0"/>
         <constraints>
-          <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+          <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="1" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
         </constraints>
-        <properties>
-          <text value="Choose a bus"/>
-        </properties>
-      </component>
-      <component id="f477" class="javax.swing.JLabel">
+        <properties/>
+        <border type="none"/>
+        <children/>
+      </grid>
+      <component id="f9725" class="javax.swing.JButton" binding="btnSelectBus" custom-create="true">
         <constraints>
-          <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-        </constraints>
-        <properties>
-          <text value="Arriving time:"/>
-        </properties>
-      </component>
-      <component id="d39bc" class="javax.swing.JLabel">
-        <constraints>
-          <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-        </constraints>
-        <properties>
-          <text value="Departing time:"/>
-        </properties>
-      </component>
-      <component id="f9725" class="javax.swing.JButton" binding="btnSelectBus">
-        <constraints>
-          <grid row="4" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+          <grid row="6" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
           <text value="SELECT BUS"/>
         </properties>
       </component>
-      <component id="d1f25" class="javax.swing.JButton" binding="btnBusDetailsReturn">
+      <component id="d1f25" class="javax.swing.JButton" binding="btnBusDetailsReturn" custom-create="true">
         <constraints>
-          <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+          <grid row="7" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
-          <text value="Return"/>
+          <text value="RETURN"/>
+        </properties>
+      </component>
+      <component id="7dc47" class="javax.swing.JLabel">
+        <constraints>
+          <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <font name="Segoe UI" size="18"/>
+          <foreground color="-8388608"/>
+          <text value="SELECT YOUR BUS"/>
+        </properties>
+      </component>
+      <component id="fcbcb" class="javax.swing.JLabel" binding="lblSched">
+        <constraints>
+          <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <font name="Segoe UI"/>
+          <foreground color="-7038050"/>
+          <text value="Choose your preferred bus schedule"/>
+        </properties>
+      </component>
+      <component id="ca78f" class="javax.swing.JLabel" binding="lblBottom">
+        <constraints>
+          <grid row="8" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <foreground color="-16777216"/>
+          <text value="MSEUF - School Bus"/>
+        </properties>
+      </component>
+      <component id="f7dea" class="javax.swing.JLabel" binding="lblSubtitle">
+        <constraints>
+          <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <foreground color="-7038050"/>
+          <text value="SCHOOL BUS SEAT RESERVATION"/>
         </properties>
       </component>
     </children>
