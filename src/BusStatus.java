@@ -113,32 +113,7 @@ public class BusStatus {
         btnStatusBack.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                try {
-                    JFrame frame = new JFrame("MAIN");
-                    Main form = new Main();
-
-                    JPanel panel = form.getMainPanel();
-                    if (panel == null) {
-                        JOptionPane.showMessageDialog(null,
-                                "Error: getMainPanel returned null. Check Main.java!",
-                                "Null Panel Error",
-                                JOptionPane.ERROR_MESSAGE);
-                        return;
-                    }
-
-                    frame.setContentPane(panel);
-                    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                    frame.setSize(490, 720);
-                    frame.setLocationRelativeTo(null);
-                    frame.setVisible(true);
-
-                    JFrame currentFrame = (JFrame) SwingUtilities.getWindowAncestor(busStatusPanel);
-                    if (currentFrame != null) {
-                        currentFrame.dispose();
-                    }
-                } catch (Exception ex) {
-                    ex.printStackTrace();
-                }
+                returnToMain();
             }
         });
 
@@ -164,6 +139,16 @@ public class BusStatus {
                     UPDATE drivers
                     SET selected_bus = 0
                     WHERE username = ?
+                    """;
+
+                    String resetTransactionHistory = """
+                    DELETE FROM transaction_history
+                    WHERE bus_num = ?
+                    """;
+
+                    String resetSeatSelection = """
+                    DELETE FROM seat_reservations
+                    WHERE bus_num = ?
                     """;
 
                     try (Connection con = DatabaseConnection.getConnection()) {
@@ -195,6 +180,34 @@ public class BusStatus {
                             if (driverRows == 0) {
                                 JOptionPane.showMessageDialog(
                                         null, "Driver account not found."
+                                );
+                                return;
+                            }
+                        }
+
+                        // Reset seat reservation for selected bus
+                        try (PreparedStatement seatReservationStmt = con.prepareStatement(resetSeatSelection)) {
+                            seatReservationStmt.setInt(1, selectedBusNum);
+
+                            int seatReservedRows = seatReservationStmt.executeUpdate();
+
+                            if (seatReservedRows == 0) {
+                                JOptionPane.showMessageDialog(
+                                        null, "No seats reserved for this bus."
+                                );
+                                return;
+                            }
+                        }
+
+                        // Reset transaction history for selected bus
+                        try (PreparedStatement transactionStmt = con.prepareStatement(resetTransactionHistory)) {
+                            transactionStmt.setInt(1, selectedBusNum);
+
+                            int transactionRows = transactionStmt.executeUpdate();
+
+                            if (transactionRows == 0) {
+                                JOptionPane.showMessageDialog(
+                                        null, "No transaction history found."
                                 );
                                 return;
                             }
@@ -292,6 +305,35 @@ public class BusStatus {
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(busStatusPanel,
                     "Failed to show transaction history: " + e.getMessage());
+        }
+    }
+
+    public void returnToMain() {
+        try {
+            JFrame frame = new JFrame("MAIN");
+            Main form = new Main();
+
+            JPanel panel = form.getMainPanel();
+            if (panel == null) {
+                JOptionPane.showMessageDialog(null,
+                        "Error: getMainPanel returned null. Check Main.java!",
+                        "Null Panel Error",
+                        JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            frame.setContentPane(panel);
+            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            frame.setSize(490, 720);
+            frame.setLocationRelativeTo(null);
+            frame.setVisible(true);
+
+            JFrame currentFrame = (JFrame) SwingUtilities.getWindowAncestor(busStatusPanel);
+            if (currentFrame != null) {
+                currentFrame.dispose();
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
         }
     }
 

@@ -18,6 +18,7 @@ public class OnlinePayment {
         this.seatNum = seatNum;
 
         txtAmount.setText("₱10.00");
+
         btnConfirmTransac.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
